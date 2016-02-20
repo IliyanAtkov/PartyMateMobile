@@ -1,3 +1,5 @@
+'use strict';
+
 var observable = require("data/observable");
 var HelloWorldModel = (function (_super) {
     __extends(HelloWorldModel, _super);
@@ -17,5 +19,6 @@ var HelloWorldModel = (function (_super) {
     };
     return HelloWorldModel;
 })(observable.Observable);
+
 exports.HelloWorldModel = HelloWorldModel;
 exports.mainViewModel = new HelloWorldModel();
