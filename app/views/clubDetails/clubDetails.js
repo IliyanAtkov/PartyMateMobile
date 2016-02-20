@@ -2,14 +2,35 @@
 
 let services = require('../../services');
 
-let vm = require('./clubDetails-view-model')
-  .create(services);
+let vm = require('./clubDetails-view-model');
+var utilityModule = require("utils/utils");
+var phone = require( "nativescript-phone" );
 
-function pageLoaded(args) {
+function pageNavigatedTo(args) {
   let page = args.object;
-  page.bindingContext = vm;
+  let club = args.context;
+  page.bindingContext = vm.create(club.id, club.name, services);
+}
+
+function facebookTap() {
+	    utilityModule.openUrl(vm.facebookUrl);
+}
+
+function twitterTap() {
+	  utilityModule.openUrl(vm.twitterUrl);
+}
+
+function phoneTap() {
+	phone.dial(vm.phone, true);
+}
+
+function siteTap() {
+	utilityModule.openUrl(vm.siteUrl);
 }
 
 module.exports  = {
-	pageLoaded
+	pageNavigatedTo,
+	facebookTap,
+	twitterTap,
+	phoneTap
 };

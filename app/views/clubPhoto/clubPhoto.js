@@ -10,6 +10,7 @@ function pageLoaded(args) {
   page.bindingContext = vm;
 }
 
+
 module.exports  = {
 	pageLoaded
 };

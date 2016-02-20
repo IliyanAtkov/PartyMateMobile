@@ -1,5 +1,26 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+	navigatedTo="pageNavigatedTo">
+		<Page.actionBar>
+   			<ActionBar title="{{ name }}">
+    	</ActionBar>
+  	</Page.actionBar>
   <StackLayout>
-    <Label text="Tap the button" class="title"/>
+  	<StackLayout orientation="horizontal">
+		<Image src="http://www.google.com/images/errors/logo_sm_2.png" stretch="none" />
+		<Image src="http://www.google.com/images/errors/logo_sm_2.png" stretch="none" />
+		<Image src="http://www.google.com/images/errors/logo_sm_2.png" stretch="none" />
+  	</StackLayout>
+
+  	<GridLayout columns="80, 150, 150" rows="*, *, *, *" >
+  		<Label text="adress" textWrap="true" row="0"  col="0"/>
+  		<Label text="{{ adress }}" textWrap="true" row="0" col="1" />
+  		<Label text="phone" textWrap="true" row="1" />
+  		<Button text="{{ phone }}" textWrap="true" row="1" col="1" tap="phoneTap"/>
+  		<Button text="Facebook" textWrap="true" row="2" col="0" tap="facebookTap"/>
+  		<Button text="Twitter" textWrap="true" row="2" col="1" tap="twitterTap"/>
+  		<Button text="Site" textWrap="true" row="2" col="3" tap="siteTap"/>
+  		<Label text="capacity" textWrap="true" row="3" />
+  		<Label text="{{ capacity }}" textWrap="true" row="3" col="1" />
+	</GridLayout>
   </StackLayout>
 </Page>
