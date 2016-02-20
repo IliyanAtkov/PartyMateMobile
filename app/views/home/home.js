@@ -1,6 +1,15 @@
-var vmModule = require("./home-view-model");
+'use strict';
+
+let services = require('../../services');
+
+let vm = require('./home-view-model')
+  .create(services);
+
 function pageLoaded(args) {
-    var page = args.object;
-    page.bindingContext = vmModule.mainViewModel;
+  let page = args.object;
+  page.bindingContext = vm;
 }
-exports.pageLoaded = pageLoaded;
+
+module.exports  = {
+	pageLoaded
+};
