@@ -1,3 +1,5 @@
+'use strict';
+
 var dialogs = require("ui/dialogs");
 var globalConstants = require('../globalConstants');
 

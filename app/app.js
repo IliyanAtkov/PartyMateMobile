@@ -1,3 +1,5 @@
+'use strict';
+
 let globalConstants = require('~/globalConstants');
 
 var application = require("application");

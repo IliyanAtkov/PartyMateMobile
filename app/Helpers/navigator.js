@@ -1,3 +1,5 @@
+'use strict';
+
 var frameModule = require("ui/frame");
 
 function doNav(navEntry) {
