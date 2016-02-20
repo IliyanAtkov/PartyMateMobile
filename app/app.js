@@ -1,6 +1,6 @@
+let globalConstants = require('~/globalConstants');
+
 var application = require("application");
 application.start({
-  moduleName: "./views/clubs/clubs"
+  moduleName: globalConstants.startUpView
 });
-
-global.baseUrl = '';
