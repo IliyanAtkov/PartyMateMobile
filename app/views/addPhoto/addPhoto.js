@@ -2,7 +2,7 @@
 
 let services = require('../../services');
 
-let vm = require('./home-view-model')
+let vm = require('./addPhoto-view-model')
   .create(services);
 
 function pageLoaded(args) {

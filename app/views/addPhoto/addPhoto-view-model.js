@@ -2,14 +2,16 @@
 
 var Observable = require("data/observable").Observable;
 
-class HomeViewModel extends Observable {
+class AddPhotoViewModel extends Observable {
 	constructor(services) {
 		super();
+		this.services = services;
+
 	}
 }
 
 module.exports = {
 	create: function(services) {
-		return new HomeViewModel(services);
+		return new AddPhotoViewModel(services);
 	}
 };

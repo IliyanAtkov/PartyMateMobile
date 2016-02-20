@@ -1,6 +1,6 @@
 var application = require("application");
 application.start({
-  moduleName: "./views/home/home"
+  moduleName: "./views/clubs/clubs"
 });
 
 global.baseUrl = '';
