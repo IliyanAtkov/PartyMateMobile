@@ -52,7 +52,7 @@ function prepareSeachBar() {
     });
 }
 
-function enableLocationTap() {
+function enableLocation() {
     if (!geolocation.isEnabled()) {
         geolocation.enableLocationRequest();
     }
@@ -60,13 +60,13 @@ function enableLocationTap() {
 
 function refreshTap(args) {
     var listView = view.getViewById(page, "clubsListView");
-    if (geolocation.isEnabled === false) {
+    if (!geolocation.isEnabled()) {
         dialogs.alert({
             title: globalConstants.noGPSTitle,
             message: globalConstants.noGPSMessage,
             okButtonText: globalConstants.OKButtonText
         }).then(function() {
-            enableLocationTap();
+            enableLocation();
             return;
         });
     }
