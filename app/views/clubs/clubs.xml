@@ -10,7 +10,7 @@
     	<SearchBar hint="SEARCH" id="searchBar" />
     	<StackLayout  orientation="horizontal">
     		<Image src="{{ clubImage }}" stretch="none"/> 
-    		<Label text="{{ clubText }}" textWrap="true" />
+    		<Label text="{{ clubText }}" textWrap="true" id="clubText" tap="clubTextTap"/>
     	</StackLayout>
     	 <ListView items="{{ clubs }}" itemTap="tapped">
     	 	   <ListView.itemTemplate>

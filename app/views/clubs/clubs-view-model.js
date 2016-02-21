@@ -7,7 +7,7 @@ class ClubsViewModel extends Observable {
 		super();
 		this.services = services;
 		this.clubImage = "http://www.google.com/images/errors/logo_sm_2.png";
-		this.clubText = "You are not in the club at the moment";
+		//this.clubText = "You are not in the club at the moment";
 
 		var club = {
 			id: '1',
