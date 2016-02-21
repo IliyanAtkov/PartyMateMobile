@@ -112,6 +112,7 @@ function refreshTap(args) {
 
 function refreshClubsInRange() {
     dialogs.alert({
+<<<<<<< HEAD
         title: globalConstants.willStartWorkingWithDataTitle,
         message: globalConstants.updatingCurrentClubPositionMessage,
         okButtonText: globalConstants.OKButtonText
@@ -139,7 +140,35 @@ function refreshClubsInRange() {
                             vm.clubId = result.Id;
                             vm.clubImage = result.ProfilePicUrl;
                             vm.clubText = result.Name;
+=======
+            title: globalConstants.willStartWorkingWithDataTitle,
+            message: globalConstants.updatingCurrentClubPositionMessage,
+            okButtonText: globalConstants.OKButtonText
+        }).then(function() {
+                loader.show();
+                geolocation.getCurrentLocation({ desiredAccuracy: 3, updateDistance: 10, maximumAge: 3000, timeout: 99999 }).
+                then(function(loc) {
+                        if (loc) {
+                            console.log("LAT: " + loc.latitude);
+                            console.log("LONG: " + loc.longitude);
+                            for (var i = 0; i < vm.clubs.length; i++) {
+                                var currentClub = vm.clubs[i];
+                                var currentClubLocation = {
+                                    latitude: currentClub.Location.Latitude,
+                                    longitude: currentClub.Location.Longitude
+                                };
+
+                                if (geolocation.distance(currentClubLocation, loc) < 200) {
+                                    vm.clubId = result.Id;
+                                    vm.clubImage = result.ProfilePicUrl;
+                                    vm.clubText = result.Name;
+                                    break;
+                                }
+                            }
+>>>>>>> d336f2ba858058f32677831378f6901d7fb247c6
                         }
+
+                        loader.hide();
                         console.dir("res : " + result);
                     })
                     .catch(function(err) {
@@ -148,11 +177,11 @@ function refreshClubsInRange() {
                         notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
                     });
             }
-        }, function(e) {
+        },
+        function(e) {
             loader.hide();
             notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
         });
-    });
 }
 
 
