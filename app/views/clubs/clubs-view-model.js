@@ -9,31 +9,18 @@ class ClubsViewModel extends Observable {
 	constructor(services) {
 		super();
 		this.services = services;
-		this.currentLocationClubText = globalConstants.noClubAvailableText;
-		this.isLoading = true;
 
-		this.clubImage = "http://www.google.com/images/errors/logo_sm_2.png";
-		var club = new Observable();
-		club.set("id", "1");
-		club.set("name", "Club #1");
-		club.set("image", "http://www.google.com/images/errors/logo_sm_2.png");
+		this.clubId = null;
+		this.clubImage = globalConstants.defaultNoClubImageUrl;
+		this.clubText = globalConstants.noClubAvailableText;
 
-		var club2 = new Observable();
-		club2.set("id", "2");
-		club2.set("name", "Club #2");
-		club2.set("image", "http://www.google.com/images/errors/logo_sm_2.png");
-
-		this.clubs = new ObservableArray([]);
-		this.clubs.push(club);
-		this.clubs.push(club2);
+		this.clubs = new ObservableArray([]); 
 
 		this.clubsToVisualize = new ObservableArray([]);
 		for (var i = 0; i < this.clubs.length; i++) {
 			this.clubsToVisualize.push(this.clubs.getItem(i));
 		}
 	}
-
-
 }
 
 

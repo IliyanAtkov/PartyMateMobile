@@ -16,16 +16,17 @@ function send(method, url, options) {
             headers: headers,
             content: JSON.stringify(data)
         }).then(function(response) {
-            console.log(response);
-            result = response.content.toJSON();
-            resolve(result);
-        }, function(error) {
-            console.log("ERROR FROM REQUESTER -" + error);
-            var result = error.content.toJSON();
-            var errorMessage = result['error_description'];
-            reject(errorMessage);
+            if (response.statusCode === 200) {
+                result = response.content.toJSON();
+                resolve(result);
+            } else {
+                reject(response)
+            }
+        }).catch(function (error) {
+            console.log('error');
+            console.log(error);
+            throw new Error(JSON.stringify(error.content));
         });
-
     });
 
     return promise;

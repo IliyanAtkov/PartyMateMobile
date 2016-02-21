@@ -2,7 +2,7 @@
 
 var connectivity = require("connectivity");
 
-function isAvailable() {
+function isEnabled() {
     var hasConnection = false;
     var connectionType = connectivity.getConnectionType();
     switch (connectionType) {
@@ -10,9 +10,10 @@ function isAvailable() {
             hasConnection = true;
             break;
     }
+
     return hasConnection;
 }
 
 module.exports = {
-	isAvailable: isAvailable
+	isEnabled: isEnabled
 }
