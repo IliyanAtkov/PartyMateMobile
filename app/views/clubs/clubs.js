@@ -25,8 +25,7 @@ function pageLoaded(args) {
     prepareSeachBar();
     setTimeout(function() {
         if (initialPageLoad) {
-            initialPageLoad = false;
-            refreshTap();
+			initialPageLoad = false;            refreshTap();
         }
     }, 500);
 }
@@ -89,10 +88,9 @@ function refreshTap(args) {
                     vm.clubsToVisualize.push(clubToAdd);
                 }
 
-                console.log("HEREEEEEE");
                 listView.refresh();
+
                 loader.hide(); 
-                // REFRESH LISTVIE
                 refreshClubsInRange();
             })
             .catch(function(err) {
@@ -105,13 +103,13 @@ function refreshTap(args) {
 }
 
 function refreshClubsInRange() {
+
     dialogs.alert({
         title: globalConstants.willStartWorkingWithDataTitle,
         message: globalConstants.updatingCurrentClubPositionMessage,
         okButtonText: globalConstants.OKButtonText
     }).then(function() {
-    loader.show();
-        geolocation.getCurrentLocation({ desiredAccuracy: 3, updateDistance: 10, maximumAge: 3000, timeout: 99999 }).
+    loader.show();        geolocation.getCurrentLocation({ desiredAccuracy: 3, updateDistance: 10, maximumAge: 3000, timeout: 99999 }).
         then(function(loc) {
             if (loc) {
                 var options = {
@@ -152,6 +150,11 @@ function refreshClubsInRange() {
 }
 
 function clubTap() {
+	if (vm.clubId === null) {
+		notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage)
+		return;
+	}
+
 	navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.clubId);
 }
 
