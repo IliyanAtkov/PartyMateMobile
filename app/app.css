@@ -13,3 +13,14 @@
 .clubsList {
 	padding-top: 50;
 }
+
+.activity-indicator-full-container {
+/*	vertical-align: center;
+	z-index: 99;
+	background-color: white;*/
+}
+
+.activity-indicator {
+	display: none;
+	vertical-align: center;
+}

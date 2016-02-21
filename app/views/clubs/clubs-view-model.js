@@ -3,12 +3,16 @@
 let Observable = require("data/observable").Observable;
 let ObservableArray = require('data/observable-array').ObservableArray;
 
+var globalConstants = require('../../globalConstants');
+
 class ClubsViewModel extends Observable {
 	constructor(services) {
 		super();
 		this.services = services;
-		this.clubImage = "http://www.google.com/images/errors/logo_sm_2.png";
+		this.currentLocationClubText = globalConstants.noClubAvailableText;
+		this.isLoading = true;
 
+		this.clubImage = "http://www.google.com/images/errors/logo_sm_2.png";
 		var club = new Observable();
 		club.set("id", "1");
 		club.set("name", "Club #1");
@@ -28,6 +32,8 @@ class ClubsViewModel extends Observable {
 			this.clubsToVisualize.push(this.clubs.getItem(i));
 		}
 	}
+
+
 }
 
 
