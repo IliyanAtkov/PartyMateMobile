@@ -76,7 +76,6 @@ function refreshTap(args) {
         return;
     }
 
-    loader.show();
     if (vm.clubs.length !== 0) {
         refreshClubsInRange();
         return;
@@ -87,6 +86,7 @@ function refreshTap(args) {
         message: globalConstants.fetchingClubsFromServerMessage,
         okButtonText: globalConstants.OKButtonText
     }).then(function() {
+        loader.show();
         requester.get(globalConstants.baseUrl + "api/Clubs/All")
             .then(function(resultClubs) {
                 for (var i = 0; i < resultClubs.length; i++) {
@@ -111,7 +111,6 @@ function refreshTap(args) {
 
 
 function refreshClubsInRange() {
-
     dialogs.alert({
         title: globalConstants.willStartWorkingWithDataTitle,
         message: globalConstants.updatingCurrentClubPositionMessage,
@@ -142,7 +141,6 @@ function refreshClubsInRange() {
                             vm.clubImage = result.ProfilePicUrl;
                             vm.clubText = result.Name;
                         }
-
                         console.dir("res : " + result);
                     })
                     .catch(function(err) {
