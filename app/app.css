@@ -4,7 +4,7 @@
 
 .clubImage {
 	height: 170;
-	width: 100;
+	width: 120;
 	margin-right: 20;
 }
 
@@ -30,10 +30,8 @@
 
 .phoneBtn {
 	height: 50;
-	margin-left: -5;
-	margin-top: -65;
 	border: none;
-	background: yellow;
+	background: #707070;
 }
 
 .facebookBtn {
@@ -58,10 +56,17 @@
 	width: 250;
 }
 
-.clubValue {
-	margin-top: 10;
+.adressValue {
+	margin-top: 5;
 }
 
 .capacityLabel {
-	margin-top: 10;
+	margin-top: 5;
+}
+
+.innerClubGrid {
+	background-color: #C0C0C0;
+	margin: 5;
+	text-align: center;
+	vertical-align: center;
 }

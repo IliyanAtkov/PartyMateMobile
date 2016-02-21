@@ -28,12 +28,10 @@ function phoneTap() {
 	phone.dial(vm.phone, true);
 }
 
-
 function siteTap() {
 	let vm = page.bindingContext;
 	utilityModule.openUrl(vm.siteUrl);
 }
-
 
 module.exports  = {
 	pageNavigatedTo,
