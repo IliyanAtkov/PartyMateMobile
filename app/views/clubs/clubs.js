@@ -5,14 +5,12 @@ var view = require("ui/core/view");
 var loader = require("nativescript-loading-indicator");
 
 var dialogs = require("ui/dialogs");
-//loader.hide();
-
 var services = require('../../services');
 var geolocation = require("nativescript-geolocation");
 var vm = require('./clubs-view-model')
     .create(services);
 var ObservableArray = require('data/observable-array').ObservableArray;
-
+var gestures = require("ui/gestures");
 var navigate = require("../../Helpers/navigator");
 var connection = require("../../Helpers/connection");
 var notifier = require("../../Helpers/notifier");
@@ -27,17 +25,26 @@ function pageLoaded(args) {
     prepareSeachBar();
     setTimeout(function() {
         if (initialPageLoad) {
+            initialPageLoad = false;
             refreshTap();
         }
     }, 500);
 }
 
+
 function prepareSeachBar() {
     let searchBar = view.getViewById(page, "searchBar");
+    if (page.android) {
+        var layout = view.getViewById(page, "clubText").android;
+        layout.setFocusableInTouchMode(true);
+        layout.setFocusable(true);
+        searchBar.android.clearFocus();
+    }
+
     searchBar.on('propertyChange', function(args) {
         vm.clubsToVisualize.splice(0);
         vm.clubs.forEach(function(c) {
-            var index = c.name.toLowerCase().indexOf(args.object.text);
+            var index = c.Name.toLowerCase().indexOf(args.object.text);
             if (index > -1) {
                 vm.clubsToVisualize.push(c);
             }
@@ -98,13 +105,12 @@ function refreshTap(args) {
 }
 
 function refreshClubsInRange() {
-    loader.show();
     dialogs.alert({
         title: globalConstants.willStartWorkingWithDataTitle,
         message: globalConstants.updatingCurrentClubPositionMessage,
         okButtonText: globalConstants.OKButtonText
     }).then(function() {
-
+    loader.show();
         geolocation.getCurrentLocation({ desiredAccuracy: 3, updateDistance: 10, maximumAge: 3000, timeout: 99999 }).
         then(function(loc) {
             if (loc) {
@@ -118,6 +124,9 @@ function refreshClubsInRange() {
                     }
                 };
 
+
+                console.log("LAT: " + loc.latitude);
+                console.log("LONG: " + loc.longitude);
                 requester.post(globalConstants.baseUrl + "api/Clubs/inRange", options)
                     .then(function(result) {
                         loader.hide();
@@ -126,6 +135,8 @@ function refreshClubsInRange() {
                         	vm.clubImage = result.ProfilePicUrl;
                         	vm.clubText = result.Name;
                         }
+
+                        console.dir("res : " + result);
                     })
                     .catch(function(err) {
                         console.log("THROWS ERR FROM REFRESH CLUB");

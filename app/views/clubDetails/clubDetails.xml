@@ -11,7 +11,7 @@
 		<Image src="http://www.google.com/images/errors/logo_sm_2.png" stretch="fill" class="clubImage" />
   	</StackLayout>
 
-    <GridLayout columns="*, *, *" rows="100, 100, 100, 110" >
+    <GridLayout columns="*, *, *" rows="100, 100, 100, 100" >
       <GridLayout columns="120,*" colSpan="3" row="0" col="0" class="innerClubGrid">
         <Label text="adress:" textWrap="true" col="0" col="0" class="clubLabel" />
         <Label text="{{ adress }}" textWrap="true" col="1" class="adressValue" />

@@ -12,7 +12,7 @@
             <Image src="{{ clubImage }}" stretch="aspectFit" col="0" />
             <Label text="{{ clubText }}" textWrap="true" id="clubText" tap="clubTap" col="1" verticalAlignment="center"/>
         </GridLayout>
-        <ListView items="{{ clubsToVisualize }}" itemTap="clubsItemTap" class="clubsList" id="clubsListView">
+        <ListView items="{{ clubsToVisualize }}" itemTap="clubsItemTap" height="150" class="clubsList" id="clubsListView">
             <ListView.itemTemplate>
                 <StackLayout orientation="horizontal" height="60">
                     <Image src="{{ ProfilePicUrl }}" stretch="none" />
