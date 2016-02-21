@@ -27,6 +27,7 @@ function pageLoaded(args) {
     prepareSeachBar();
     setTimeout(function() {
         if (initialPageLoad) {
+        	initialPageLoad = false;
             refreshTap();
         }
     }, 500);
@@ -37,7 +38,7 @@ function prepareSeachBar() {
     searchBar.on('propertyChange', function(args) {
         vm.clubsToVisualize.splice(0);
         vm.clubs.forEach(function(c) {
-            var index = c.name.toLowerCase().indexOf(args.object.text);
+            var index = c.Name.toLowerCase().indexOf(args.object.text);
             if (index > -1) {
                 vm.clubsToVisualize.push(c);
             }
@@ -82,10 +83,9 @@ function refreshTap(args) {
                     vm.clubsToVisualize.push(clubToAdd);
                 }
 
-                console.log("HEREEEEEE");
                 listView.refresh();
+
                 loader.hide(); 
-                // REFRESH LISTVIE
                 refreshClubsInRange();
             })
             .catch(function(err) {
@@ -98,13 +98,12 @@ function refreshTap(args) {
 }
 
 function refreshClubsInRange() {
-    loader.show();
     dialogs.alert({
         title: globalConstants.willStartWorkingWithDataTitle,
         message: globalConstants.updatingCurrentClubPositionMessage,
         okButtonText: globalConstants.OKButtonText
     }).then(function() {
-
+    	loader.show();
         geolocation.getCurrentLocation({ desiredAccuracy: 3, updateDistance: 10, maximumAge: 3000, timeout: 99999 }).
         then(function(loc) {
             if (loc) {
@@ -141,6 +140,11 @@ function refreshClubsInRange() {
 }
 
 function clubTap() {
+	if (vm.clubId === null) {
+		notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage)
+		return;
+	}
+
 	navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.clubId);
 }
 
