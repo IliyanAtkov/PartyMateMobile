@@ -7,10 +7,10 @@
     	</ActionBar>
   	</Page.actionBar>
 	<StackLayout>
-    	<SearchBar hint="SEARCH" id="searchBar" />
+    	<SearchBar hint="SEARCH" id="searchBar" hint="Search clubs.." />
     	<StackLayout  orientation="horizontal">
     		<Image src="{{ clubImage }}" stretch="none"/> 
-    		<Label text="{{ clubText }}" textWrap="true" id="clubText" tap="clubTextTap"/>
+    		<Label text="{{ currentLocationClubText }}" textWrap="true" id="clubText" tap="currentLocationClubTap"/>
     	</StackLayout>
     	 <ListView items="{{ clubsToVisualize }}" itemTap="clubsItemTap" class="clubsList">
     	 	   <ListView.itemTemplate>

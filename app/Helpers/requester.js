@@ -10,23 +10,25 @@ function send(method, url, options) {
 
     var result;
     var promise = new Promise(function(resolve, reject) {
-            http.request({
-                url: url,
-                method: method,
-                headers: headers,
-                content: JSON.stringify(data)
-            }).then(function(response) {
-                result = response.content.toJSON();
-                resolve(result);
-            }, function(error) {
-                result = error.content.toJSON();
-                errorMessage = result['error_description'];
-                reject(errorMessage);
-            });
-        }
+        http.request({
+            url: url,
+            method: method,
+            headers: headers,
+            content: JSON.stringify(data)
+        }).then(function(response) {
+            console.log(response);
+            result = response.content.toJSON();
+            resolve(result);
+        }, function(error) {
+            console.log("ERROR FROM REQUESTER -" + error);
+            var result = error.content.toJSON();
+            var errorMessage = result['error_description'];
+            reject(errorMessage);
+        });
 
-        return promise;
-    }
+    });
+
+    return promise;
 }
 
 function get(url, options) {
