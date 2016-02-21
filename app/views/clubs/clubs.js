@@ -25,7 +25,8 @@ function pageLoaded(args) {
     prepareSeachBar();
     setTimeout(function() {
         if (initialPageLoad) {
-			initialPageLoad = false;            refreshTap();
+            initialPageLoad = false;
+            refreshTap();
         }
     }, 500);
 }
@@ -60,8 +61,14 @@ function enableLocationTap() {
 function refreshTap(args) {
     var listView = view.getViewById(page, "clubsListView");
     if (geolocation.isEnabled === false) {
-        notifier.notify(globalConstants.noGPSTitle, globalConstants.noGPSMessage);
-        return;
+        dialogs.alert({
+            title: globalConstants.noGPSTitle,
+            message: globalConstants.noGPSMessage,
+            okButtonText: globalConstants.OKButtonText
+        }).then(function() {
+            enableLocationTap();
+            return;
+        });
     }
 
     if (!connection.isEnabled) {
@@ -90,7 +97,7 @@ function refreshTap(args) {
 
                 listView.refresh();
 
-                loader.hide(); 
+                loader.hide();
                 refreshClubsInRange();
             })
             .catch(function(err) {
@@ -102,6 +109,7 @@ function refreshTap(args) {
     });
 }
 
+
 function refreshClubsInRange() {
 
     dialogs.alert({
@@ -109,7 +117,8 @@ function refreshClubsInRange() {
         message: globalConstants.updatingCurrentClubPositionMessage,
         okButtonText: globalConstants.OKButtonText
     }).then(function() {
-    loader.show();        geolocation.getCurrentLocation({ desiredAccuracy: 3, updateDistance: 10, maximumAge: 3000, timeout: 99999 }).
+        loader.show();
+        geolocation.getCurrentLocation({ desiredAccuracy: 3, updateDistance: 10, maximumAge: 3000, timeout: 99999 }).
         then(function(loc) {
             if (loc) {
                 var options = {
@@ -117,8 +126,8 @@ function refreshClubsInRange() {
                         "Content-Type": "application/json"
                     },
                     data: {
-                    	"Latitude": loc.latitude,
-                    	"Longitude": loc.longitude
+                        "Latitude": loc.latitude,
+                        "Longitude": loc.longitude
                     }
                 };
 
@@ -129,9 +138,9 @@ function refreshClubsInRange() {
                     .then(function(result) {
                         loader.hide();
                         if (result !== null) {
-                        	vm.clubId = result.Id;
-                        	vm.clubImage = result.ProfilePicUrl;
-                        	vm.clubText = result.Name;
+                            vm.clubId = result.Id;
+                            vm.clubImage = result.ProfilePicUrl;
+                            vm.clubText = result.Name;
                         }
 
                         console.dir("res : " + result);
@@ -150,12 +159,12 @@ function refreshClubsInRange() {
 }
 
 function clubTap() {
-	if (vm.clubId === null) {
-		notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage)
-		return;
-	}
+    if (vm.clubId === null) {
+        notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage)
+        return;
+    }
 
-	navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.clubId);
+    navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.clubId);
 }
 
 function clubsItemTap(args) {
