@@ -1,13 +1,11 @@
-﻿.title {
-    font-size: 30;
-    horizontal-align: center;
-    margin: 20;
+﻿.clubsList {
+	padding-top: 50;
 }
 
-.message {
-    font-size: 20;
-    color: #284848;
-    horizontal-align: center;
+.clubImage {
+	height: 170;
+	width: 100;
+	margin-right: 20;
 }
 
 .clubsList {
@@ -23,4 +21,47 @@
 .activity-indicator {
 	display: none;
 	vertical-align: center;
+}
+
+.clubLabel {
+	font-weight: bold;
+	font-size: 20;
+}
+
+.phoneBtn {
+	height: 50;
+	margin-left: -5;
+	margin-top: -65;
+	border: none;
+	background: yellow;
+}
+
+.facebookBtn {
+	background-color: #0154A0;
+}
+
+.twitterBtn {
+	background-color: #36D8FF;
+}
+
+.siteBtn {
+
+}
+
+.clubDetails {
+	margin: 15;
+}
+
+.link {
+	text-align: center;
+	font-size: 15;
+	width: 250;
+}
+
+.clubValue {
+	margin-top: 10;
+}
+
+.capacityLabel {
+	margin-top: -5;
 }
