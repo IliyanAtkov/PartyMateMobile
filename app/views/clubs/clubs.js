@@ -58,6 +58,7 @@ function enableLocation() {
     }
 }
 
+
 function refreshTap(args) {
     var listView = view.getViewById(page, "clubsListView");
     if (!geolocation.isEnabled()) {
@@ -108,7 +109,6 @@ function refreshTap(args) {
             });
     });
 }
-
 
 function refreshClubsInRange() {
     dialogs.alert({
