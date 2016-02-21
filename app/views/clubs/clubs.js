@@ -129,7 +129,7 @@ function refreshClubsInRange() {
                         "Longitude": loc.longitude
                     }
                 };
-                
+
                 console.log("LAT: " + loc.latitude);
                 console.log("LONG: " + loc.longitude);
                 requester.post(globalConstants.baseUrl + "api/Clubs/inRange", options)
@@ -154,6 +154,7 @@ function refreshClubsInRange() {
         });
     });
 }
+
 
 function clubTap() {
     if (vm.clubId === null) {
