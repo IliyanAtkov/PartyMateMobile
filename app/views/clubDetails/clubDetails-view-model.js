@@ -15,9 +15,9 @@ class ClubDetailsViewModel extends Observable {
 		return {
 			"adress": "Studenski grad 3",
 			"capacity": "15",
-			"facebookUrl": "faceeee",
-			"twitterUrl": "twitter",
-			"siteUrl": "htpp://www.bestsite.com",
+			"facebookUrl": "http://www.bestsite.com",
+			"twitterUrl": "http://www.bestsite.com",
+			"siteUrl": "http://www.bestsite.com",
 			"phone": 0877777777,
 		};
 	}

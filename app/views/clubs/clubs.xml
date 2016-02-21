@@ -2,7 +2,7 @@
 	<Page.actionBar>
    		<ActionBar title="Clubs">
         	<ActionBar.actionItems>
-         		<ActionItem ios.systemIcon="15" android.systemIcon = "ic_menu_refresh" />
+         		<ActionItem ios.systemIcon="15" android.systemIcon = "ic_menu_refresh" tap="refreshTap"/>
       		</ActionBar.actionItems>
     	</ActionBar>
   	</Page.actionBar>
@@ -12,7 +12,7 @@
     		<Image src="{{ clubImage }}" stretch="none"/> 
     		<Label text="{{ clubText }}" textWrap="true" id="clubText" tap="clubTextTap"/>
     	</StackLayout>
-    	 <ListView items="{{ clubs }}" itemTap="tapped">
+    	 <ListView items="{{ clubsToVisualize }}" itemTap="clubsItemTap" class="clubsList">
     	 	   <ListView.itemTemplate>
     	 	   	<StackLayout orientation="horizontal">
    				    <Image src="{{ image }}" stretch="none" />

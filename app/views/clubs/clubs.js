@@ -3,10 +3,12 @@
 let services = require('../../services');
 let view = require("ui/core/view");
 let page = require("ui/page");
-let frameModule = require('ui/frame');
 var geolocation = require("nativescript-geolocation");
 let vm = require('./clubs-view-model')
 	.create(services);
+let navigate = require("../../Helpers/navigator");
+let ObservableArray = require('data/observable-array').ObservableArray;
+
 
 function pageLoaded(args) {
 	page = args.object;
@@ -21,10 +23,11 @@ function enableLocationTap() {
     }
 }
 
+
 function setClubText() {
 	var clubTextLabel = view.getViewById(page, "clubText");
 
-	if (geolocation.isEnabled == true) {
+	if (geolocation.isEnabled === true) {
 		if (!clubTextLabel.text) {
 			clubTextLabel.text = "You are not in club at the moment";
 		}
@@ -42,38 +45,54 @@ function clubTextTap() {
 }
 
 function getLocation() {
-    var location = geolocation.getCurrentLocation({desiredAccuracy: 3, updateDistance: 10, maximumAge: 3000, timeout: 20000}).
+    geolocation.getCurrentLocation({desiredAccuracy: 3, updateDistance: 10, maximumAge: 3000, timeout: 20000}).
     then(function(loc) {
         if (loc) {
-            console.log("Current location is: " + loc.latitude);
+            console.log("latitude + " + loc.latitude + " longitude" + loc.longitude);
         }
     }, function(e){
         console.log("Error: " + e.message);
     });
+
 }
 
 function attachSeachBar() {
 	let searchBar = view.getViewById(page, "searchBar");
 	searchBar.on('propertyChange', function(args) {
-		vm.clubs
 		console.log("Search for " + args.object.text);
+
+		vm.clubsToVisualize.splice(0);
+		vm.clubs.forEach(function(c) {
+				var index = c.get('name').toLowerCase().indexOf(args.object.text);
+			if (index > -1) {
+				vm.clubsToVisualize.push(c);
+			}
+			
+		});
+
+		
+	console.log(vm.clubs.length);
+
+	//	vm.clubsToVisualize.push(filtered);
+	//	console.dir(vm.clubs);
 	});
 }
 
+function refreshTap(args) {
 
-function tapped(args) {
-	let topmost = frameModule.topmost();
-	let tappedClub = vm.clubs[args.index];
-	let clubDetails = {
-    	moduleName: "./views/clubDetails/clubDetails",
-    	context: { tappedClub },
-    	animated: true
-	};
-	topmost.navigate(clubDetails);
+}
+
+function clubsItemTap(args) {
+
+	let tappedClub = vm.clubs.getItem(args.index);
+	console.dir(tappedClub);
+	console.log(args.index);
+	navigate.navigateAnimated("./views/clubDetails/clubDetails", tappedClub);
 }
 
 module.exports = {
 	pageLoaded,
-	tapped,
-	clubTextTap
+	clubsItemTap,
+	clubTextTap,
+	refreshTap
 };
