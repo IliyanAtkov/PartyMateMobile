@@ -12,12 +12,19 @@
   	</StackLayout>
 
     <GridLayout columns="*, *, *" rows="100, 100, 100, 110" >
-      <Label text="adress:" textWrap="true" row="0" col="0" class="clubLabel" />
-      <Label text="{{ adress }}" textWrap="true" row="0" col="1" colSpan="2" class="clubValue" />
-      <Label text="phone:" textWrap="true" row="1" col="0" class="clubLabel" />
-      <Button text="{{ phone }}" textWrap="true" row="1" col="1" tap="phoneTap" class="phoneBtn"/>
-      <Label text="capacity:" textWrap="true" row="2" class="clubLabel" />
-      <Label text="{{ capacity }}" textWrap="true" row="2" col="1" class="capacityLabel" />
+      <GridLayout columns="120,*" colSpan="3" row="0" col="0" class="innerClubGrid">
+        <Label text="adress:" textWrap="true" col="0" col="0" class="clubLabel" />
+        <Label text="{{ adress }}" textWrap="true" col="1" class="adressValue" />
+      </GridLayout>
+      <GridLayout columns="120,*" colSpan="3" row="1" class="innerClubGrid">
+        <Label text="phone:" textWrap="true" col="0" class="clubLabel" />
+        <Button text="{{ phone }}" textWrap="true" col="1" tap="phoneTap" class="phoneBtn"/>
+      </GridLayout>
+      <GridLayout columns="120,*" colSpan="3" row="2" class="innerClubGrid">
+        <Label text="capacity:" textWrap="true" col="0" class="clubLabel" />
+        <Label text="{{ capacity }}" textWrap="true" col="1" class="capacityLabel" />
+      </GridLayout>
+ 
       <Button text="Facebook" textWrap="true" row="3" col="0" tap="facebookTap" class="facebookBtn link" />
       <Button text="Twitter" textWrap="true" row="3" col="1" tap="twitterTap" class="twitterBtn link" />
       <Button text="Site" textWrap="true" row="3" col="2"  tap="siteTap" class="siteBtn link" />
