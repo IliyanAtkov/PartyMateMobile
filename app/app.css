@@ -2,12 +2,6 @@
 	padding-top: 50;
 }
 
-.clubImage {
-	height: 170;
-	width: 120;
-	margin-right: 20;
-}
-
 .clubsList {
 	padding-top: 50;
 }
@@ -23,31 +17,19 @@
 	vertical-align: center;
 }
 
-.clubLabel {
+.clubs-details-label {
 	font-weight: bold;
 	font-size: 20;
 }
 
 .phoneBtn {
-	height: 50;
+	font-size: 30;
 	border: none;
 	background: #707070;
 }
 
-.facebookBtn {
-	background-color: #0154A0;
-}
-
-.twitterBtn {
-	background-color: #36D8FF;
-}
-
-.siteBtn {
-
-}
-
-.clubDetails {
-	margin: 15;
+.club-details-image-link {
+	margin: 10;
 }
 
 .link {
@@ -61,7 +43,7 @@
 }
 
 .capacityLabel {
-	margin-top: -5;
+	font-size: 40;
 }
 
 .current-location-club-grid {
@@ -69,11 +51,20 @@
 	margin-top: 5;
 }
 
-.innerClubGrid {
+.inner-club-details-grid {
+	height: 70;
 	background-color: #C0C0C0;
 	margin: 5;
 	text-align: center;
 	vertical-align: center;
+}
+
+.club-details-image {
+}
+
+.club-details-profile-image {
+	margin-left: 5;
+	margin-right: 5;
 }
 
 .show {

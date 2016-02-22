@@ -63,17 +63,19 @@
 
  function refreshTap(args) {
      var listView = view.getViewById(page, "clubsListView");
-     if (!geolocation.isEnabled()) {
-         dialogs.alert({
-             title: globalConstants.noGPSTitle,
-             message: globalConstants.noGPSMessage,
-             okButtonText: globalConstants.OKButtonText
-         }).then(function() {
-             enableLocation();
-         });
 
-         return;
-     }
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ UNCOMMENT THIS
+     // if (!geolocation.isEnabled()) {
+     //     dialogs.alert({
+     //         title: globalConstants.noGPSTitle,
+     //         message: globalConstants.noGPSMessage,
+     //         okButtonText: globalConstants.OKButtonText
+     //     }).then(function() {
+     //         enableLocation();
+     //     });
+
+     //     return;
+     // }
 
      if (!connection.isEnabled) {
          notifier.notify(globalConstants.noConnectionTitle, globalConstants.noConnectionMessage);
@@ -122,6 +124,8 @@
              longitude: club.Location.Longitude
          };
 
+         var location = currentClubLocation; // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
+
          var distance = geolocation.distance(currentClubLocation, location);
          if (distance < globalConstants.rangeForClubsInMeters &&
              nearestClubDistance === null) {
@@ -159,6 +163,12 @@
  }
 
  function refreshClubInRange() {
+
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
+     updateCurrentClub();
+     return;
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
      dialogs.alert({
          title: globalConstants.willStartWorkingWithDataTitle,
          message: globalConstants.updatingCurrentClubPositionMessage,
@@ -188,38 +198,54 @@
      });
  }
 
-
  function clubTap() {
-     console.log("CLUBB TAPPPP");
-     if (location == undefined) {
-         loader.show();
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
+     loader.show();
+     if (vm.currentClub.getItem(0).Id === 0) {
+         notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
+         return;
+     }
 
-         geolocation.getCurrentLocation({
-             desiredAccuracy: 2,
-             updateDistance: 10,
-             maximumAge: 3000,
-             timeout: 99999
-         }).then(function(loc) {
-             if (loc) {
-                 updateCurrentClub(loc);
-                 if (vm.currentClub.getItem(0).Id === 0) {
-                     notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
-                     return;
-                 }
+     loader.hide();
+     navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
+     return;
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-                 loader.hide();
-                 navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
+     loader.show();
+     geolocation.getCurrentLocation({
+         desiredAccuracy: 2,
+         updateDistance: 10,
+         maximumAge: 3000,
+         timeout: 99999
+     }).then(function(loc) {
+         if (loc) {
+             updateCurrentClub(loc);
+             if (vm.currentClub.getItem(0).Id === 0) {
+                 notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
+                 return;
              }
-         }).catch(function(err) {
-             console.log("THROWS ERR FROM REFRESH CLUB in clubTap");
-             console.dir(err); 
+
              loader.hide();
-             notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
-         });
-     }
-     else {
-        navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
-     }
+             var navEntry = {
+                 moduleName: "./views/clubPhotos/clubPhotos",
+                 context: vm.currentClub.getItem(0),
+                 animated: true,
+                 navigationTransition: {
+                     transition: "flip",
+                     duration: 350,
+                     curve: "easeIn"
+                 },
+                 backstackVisible: false
+             };
+
+             navigate.navigateWithEntry(navEntry);
+         }
+     }).catch(function(err) {
+         console.log("THROWS ERR FROM REFRESH CLUB in clubTap");
+         console.dir(err);
+         loader.hide();
+         notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
+     });
  }
 
  function clubsItemTap(args) {

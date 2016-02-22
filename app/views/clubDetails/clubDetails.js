@@ -11,17 +11,14 @@ var vm = require('./clubDetails-view-model');
 var connection = require("../../Helpers/connection");
 var notifier = require("../../Helpers/notifier");
 var globalConstants = require("../../globalConstants");
+var navigator = require("../../Helpers/navigator");
 
 function pageNavigatedTo(args) {
     page = args.object;
     var club = args.context;
-    console.log("Club " + club);
-    console.dir(club);
     loader.show();
     services.clubs.getClubDetails(club)
         .then(function(details) {
-            //	console.dir(details);
-            console.log("succeess getClubDetails");
             page.bindingContext = vm.create(details);
             loader.hide();
         })
@@ -29,7 +26,6 @@ function pageNavigatedTo(args) {
             console.dir("IN CLUB DETAILS ERR" + err);
             loader.hide();
         });
-
 }
 
 
@@ -45,7 +41,6 @@ function twitterTap() {
 
 function phoneTap() {
     var vm = page.bindingContext;
-    console.log("phone ", vm.phone);
     phone.dial(vm.phone, true);
 }
 
@@ -54,9 +49,15 @@ function siteTap() {
     utilityModule.openUrl(vm.siteUrl);
 }
 
+function backButtonTap() {
+    navigator.navigateAnimated("./views/clubs/clubs");
+}
+
 module.exports = {
     pageNavigatedTo,
     facebookTap,
     twitterTap,
-    phoneTap
+    phoneTap,
+    siteTap,
+    backButtonTap
 };

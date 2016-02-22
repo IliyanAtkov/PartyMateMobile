@@ -11,7 +11,6 @@ class ClubPhotoViewModel extends Observable {
 		this.services = services;
 
 		this.club = club;
-		console.dir('~~~~ FROM CLUB PHOTO -' + this.club);
 	}
 }
 

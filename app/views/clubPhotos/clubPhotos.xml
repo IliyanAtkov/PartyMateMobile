@@ -1,10 +1,17 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatedTo="pageNavigatedTo">
+    <Page.actionBar>
+        <ActionBar title="{{ clubName }}" icon="">
+            <NavigationButton android.systemIcon="ic_menu_back" tap="backButtonTap" />
+        </ActionBar>
+    </Page.actionBar>
     <TabView selectedIndexChanged="indexChange">
         <TabView.items>
             <TabViewItem title="Photos" tap="btn">
                 <TabViewItem.view>
                     <StackLayout>
-                        <Button id="myBtn" text="List View" tap="tap" />
+                        <GridLayout rows="" columns="">
+                            
+                        </GridLayout>
                         <Button text="List View" tap="listTap" />
                         <Button text="Html View" tap="htmlTap" />
                         <Button text="Web View" tap="webTap" />
