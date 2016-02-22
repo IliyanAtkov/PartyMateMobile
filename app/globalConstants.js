@@ -20,7 +20,13 @@ let globalConstantsModule = {
 	somethingBadHappenedTitle: "Something Baad happened!",
 	somethingBadHappenedMessage: "Please try again later.",
 	fetchingClubsFromServerMessage: "Will Fetch our Clubs! :)",
-	updatingCurrentClubPositionMessage: "Will update your position and find club near you! :)"
+	updatingCurrentClubPositionMessage: "Will update your position and find club near you! :)",
+
+	defaultNoClubDetailsName: "PartyMate",
+	defaultNoClubDetailsSiteUrl: baseUrl,
+	defaultNoClubDetailsProfileImageUrl: "",
+	defaultNoClubDetailsPhoto1Url: "",
+	defaultNoClubDetailsPhoto2Url: ""
 }; 
  
 module.exports = globalConstantsModule;

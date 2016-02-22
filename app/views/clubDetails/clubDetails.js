@@ -1,42 +1,60 @@
 'use strict';
 
-
 var page = require("ui/page");
+var loader = require("nativescript-loading-indicator");
+var phone = require("nativescript-phone");
+var utilityModule = require("utils/utils");
+
 var services = require('../../services');
 var vm = require('./clubDetails-view-model');
-var utilityModule = require("utils/utils");
-var phone = require( "nativescript-phone" );
+
+var connection = require("../../Helpers/connection");
+var notifier = require("../../Helpers/notifier");
+var globalConstants = require("../../globalConstants");
 
 function pageNavigatedTo(args) {
-  page = args.object;
-  let club = args.context;
-  console.dir(club);
-  page.bindingContext = vm.create(club, services);
+    page = args.object;
+    var club = args.context;
+
+    page.bindingContext = vm.create(club, services);
+
+    loader.show();
+    services.clubs.getClubDetails(club)
+        .then(function(details) {
+        	console.dir(details);
+        	vm.load(details);
+            loader.hide();
+        })
+        .catch(function(err) {
+            console.dir("IN CLUB DETAILS ERR" + err);
+            vm.load(null);
+            loader.hide();
+        });
 }
 
 function facebookTap() {
-	let vm = page.bindingContext;
-	utilityModule.openUrl(vm.facebookUrl);
+    var vm = page.bindingContext;
+    utilityModule.openUrl(vm.facebookUrl);
 }
 
 function twitterTap() {
-	 let vm = page.bindingContext;
-	 utilityModule.openUrl(vm.twitterUrl);
+    var vm = page.bindingContext;
+    utilityModule.openUrl(vm.twitterUrl);
 }
 
 function phoneTap() {
-	let vm = page.bindingContext;
-	phone.dial(vm.phone, true);
+    var vm = page.bindingContext;
+    phone.dial(vm.phone, true);
 }
 
 function siteTap() {
-	let vm = page.bindingContext;
-	utilityModule.openUrl(vm.siteUrl);
+    var vm = page.bindingContext;
+    utilityModule.openUrl(vm.siteUrl);
 }
 
-module.exports  = {
-	pageNavigatedTo,
-	facebookTap,
-	twitterTap,
-	phoneTap
+module.exports = {
+    pageNavigatedTo,
+    facebookTap,
+    twitterTap,
+    phoneTap
 };

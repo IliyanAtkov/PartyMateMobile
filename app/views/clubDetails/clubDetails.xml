@@ -6,9 +6,9 @@
   	</Page.actionBar>
   <StackLayout class="clubDetails">
   	<StackLayout orientation="horizontal">
-		<Image src="http://www.google.com/images/errors/logo_sm_2.png" stretch="fill" class="clubImage" />
-		<Image src="http://www.google.com/images/errors/logo_sm_2.png" stretch="fill" class="clubImage" />
-		<Image src="http://www.google.com/images/errors/logo_sm_2.png" stretch="fill" class="clubImage" />
+		<Image src="{{ photo1Url }}" stretch="fill" class="clubImage" />
+		<Image src="{{ profilePicUrl }}" stretch="fill" class="clubProfileImage" />
+		<Image src="{{ photo2Url }}" stretch="fill" class="clubImage" />
   	</StackLayout>
 
     <GridLayout columns="*, *, *" rows="100, 100, 100, 100" >

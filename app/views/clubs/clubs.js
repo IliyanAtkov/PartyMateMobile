@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 var page = require("ui/page");
 var view = require("ui/core/view");
@@ -195,13 +195,11 @@ function refreshClubInRange() {
 function clubTap() {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
     if (vm.currentClub.getItem(0).clubId === 0) {
-        if (vm.clubId === null) {
-            notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
-            return;
-        }
-
-        navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.currentClub.getItem(0));
+        notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
+        return;
     }
+
+    navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.currentClub.getItem(0));
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ UNCOMMENT THIS ON DEVICE
