@@ -5,18 +5,20 @@ var loader = require("nativescript-loading-indicator");
 var utilityModule = require("utils/utils");
 
 var services = require('../../services');
-// var vm = require('./clubPhotos-view-model');
+ var vm = require('./clubPhotos-view-model');
 
 var connection = require("../../Helpers/connection");
 var notifier = require("../../Helpers/notifier");
 var globalConstants = require("../../globalConstants");
 var navigate = require("../../Helpers/navigator");
 
+
 function pageNavigatedTo(args) {
-  
     page = args.object;
     var clubPhotos = args.context;
+    page.bindingContext = vm.create();
     console.log("Club photos");
+
     // loader.show();
     // services.clubs.getClubDetails(club)
     //     .then(function(details) {
@@ -46,8 +48,15 @@ function indexChange(args) {
     }
 }
 
+function submitBtn(args) {
+    var textView = view.getViewById(page, "userOpinion");
+    if (textView.text != undefined && textView.text.count != 0) {
+        
+    }
+}
+
 
 module.exports = {
     pageNavigatedTo,
-    indexChange
+    indexChange,
     };

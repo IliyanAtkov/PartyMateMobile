@@ -4,10 +4,15 @@
             <TabViewItem title="Photos" tap="btn">
                 <TabViewItem.view>
                     <StackLayout>
-                        <Button id="myBtn" text="List View" tap="tap" />
-                        <Button text="List View" tap="listTap" />
-                        <Button text="Html View" tap="htmlTap" />
-                        <Button text="Web View" tap="webTap" />
+                         <ListView items="{{ photos }}">
+                            <ListView.itemTemplate width="100">
+                                <StackLayout>
+                                    <Image src="{{ image }}" stretch="none" />
+                                    <Button text="Like" />
+                                    <Button text="Dislike" />
+                                </StackLayout>
+                            </ListView.itemTemplate>
+                        </ListView>
                     </StackLayout>
                 </TabViewItem.view>
             </TabViewItem>
@@ -21,10 +26,9 @@
             <TabViewItem title="Reviews">
                   <TabViewItem.view>
                     <StackLayout>
-                        <Button id="myBtn" text="List View" tap="tap" />
-                        <Button text="List View" tap="listTap" />
-                        <Button text="Html View" tap="htmlTap" />
-                        <Button text="Web View" tap="webTap" />
+                       <Label text="Tell us what you thinking: " />
+                       <TextView text="" id="userOpinion" />
+                       <Button text="Submit" tap="submitBtn" />
                     </StackLayout>
                 </TabViewItem.view>
             </TabViewItem>
