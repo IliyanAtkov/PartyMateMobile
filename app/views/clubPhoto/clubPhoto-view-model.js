@@ -6,16 +6,17 @@ let ObservableArray = require('data/observable-array').ObservableArray;
 var globalConstants = require('../../globalConstants');
 
 class ClubPhotoViewModel extends Observable {
-	constructor(id, services) {
+	constructor(club, services) {
 		super();
 		this.services = services;
 
-		this.id = id;
+		this.club = club;
+		console.dir('~~~~ FROM CLUB PHOTO -' + this.club);
 	}
 }
 
 module.exports = {
-	create: function(id, services) {
-		return new ClubPhotoViewModel(id, services);
+	create: function(club, services) {
+		return new ClubPhotoViewModel(club, services);
 	}
 };

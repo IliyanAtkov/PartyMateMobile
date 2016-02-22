@@ -17,6 +17,7 @@
  var globalConstants = require("../../globalConstants");
  var requester = require("../../Helpers/requester");
 
+ var location = undefined;
  var initialPageLoad = true;
 
  function pageLoaded(args) {
@@ -56,6 +57,7 @@
      if (!geolocation.isEnabled()) {
          geolocation.enableLocationRequest();
      }
+     console.log("SSSSSS");
  }
 
 
@@ -135,16 +137,25 @@
          }
      });
 
+     vm.currentClub.splice(0);
      if (nearestClub === null) {
-         page.bindingContext.clubId = 0;
-         page.bindingContext.clubImage = globalConstants.defaultNoClubImageUrl;
-         page.bindingContext.clubName = globalConstants.noClubAvailableText;
+         vm.currentClub.push({
+             Id: 0,
+             clubImage: globalConstants.defaultNoClubImageUrl,
+             clubName: globalConstants.noClubAvailableText
+         });
+
          return;
      }
 
-     this.clubId = nearestClub.Id;
-     this.clubImage = nearestClub.ProfilePicUrl;
-     this.clubName = nearestClub.Name;
+     vm.currentClub.push({
+         Id: nearestClub.Id,
+         clubImage: nearestClub.ProfilePicUrl,
+         clubName: nearestClub.Name
+     });
+
+     var currentClubListView = view.getViewById(page, "currentClubListView");
+     currentClubListView.refresh();
  }
 
  function refreshClubInRange() {
@@ -155,12 +166,13 @@
      }).then(function() {
          loader.show();
          geolocation.getCurrentLocation({
-             desiredAccuracy: 3,
+             desiredAccuracy: 2,
              updateDistance: 10,
-             maximumAge: 50,
+             maximumAge: 3000,
              timeout: 99999
          }).then(function(loc) {
              if (loc) {
+                 location = loc;
                  updateCurrentClub(loc);
                  loader.hide();
              }
@@ -178,29 +190,36 @@
 
 
  function clubTap() {
-     loader.show();
-     geolocation.getCurrentLocation({
-         desiredAccuracy: 3,
-         updateDistance: 10,
-         maximumAge: 50,
-         timeout: 99999
-     }).then(function(loc) {
-         if (loc) {
-             updateCurrentClub(loc);
-             if (vm.clubId === 0) {
-                 notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
-                 return;
-             }
+     console.log("CLUBB TAPPPP");
+     if (location == undefined) {
+         loader.show();
 
+         geolocation.getCurrentLocation({
+             desiredAccuracy: 2,
+             updateDistance: 10,
+             maximumAge: 3000,
+             timeout: 99999
+         }).then(function(loc) {
+             if (loc) {
+                 updateCurrentClub(loc);
+                 if (vm.currentClub.getItem(0).Id === 0) {
+                     notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
+                     return;
+                 }
+
+                 loader.hide();
+                 navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
+             }
+         }).catch(function(err) {
+             console.log("THROWS ERR FROM REFRESH CLUB in clubTap");
+             console.dir(err); 
              loader.hide();
-             navigate.navigateAnimated("./views/clubPhotos/clubPhotos", this.clubId);
-         }
-     }).catch(function(err) {
-         console.log("THROWS ERR FROM REFRESH CLUB in clubTap");
-         console.dir(err);
-         loader.hide();
-         notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
-     });
+             notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
+         });
+     }
+     else {
+        navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
+     }
  }
 
  function clubsItemTap(args) {
