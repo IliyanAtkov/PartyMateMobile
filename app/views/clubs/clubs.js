@@ -205,21 +205,28 @@ function clubTap() {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ UNCOMMENT THIS ON DEVICE
+    // loader.show();
     // geolocation.getCurrentLocation({
-    //         desiredAccuracy: 3,
-    //         updateDistance: 10,
-    //         maximumAge: 3000,
-    //         timeout: 99999
-    //     }).then(function(loc) {
-    //         if (loc) {
-    //             updateCurrentClub(loc);
-    //             loader.hide();
+    //     desiredAccuracy: 3,
+    //     updateDistance: 10,
+    //     maximumAge: 3000,
+    //     timeout: 99999
+    // }).then(function(loc) {
+    //     if (loc) {
+    //         updateCurrentClub(loc);
+    //         if (vm.currentClub.getItem(0).clubId === 0) {
+    //             notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
+    //             return;
     //         }
-    //     }).catch(function(err) {
-    //         console.log("THROWS ERR FROM REFRESH CLUB");
+
     //         loader.hide();
-    //         notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
-    //     });
+    //         navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.currentClub.getItem(0));
+    //     }
+    // }).catch(function(err) {
+    //     console.log("THROWS ERR FROM REFRESH CLUB");
+    //     loader.hide();
+    //     notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
+    // });
 }
 
 function clubsItemTap(args) {
