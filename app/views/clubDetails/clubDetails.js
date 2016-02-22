@@ -25,7 +25,7 @@ function pageNavigatedTo(args) {
         })
         .catch(function(err) {
             console.dir("IN CLUB DETAILS ERR" + err);
-            loader.hide();
+            loader.hide();  
         });
 }
 

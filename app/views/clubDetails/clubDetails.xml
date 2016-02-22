@@ -8,7 +8,7 @@
         <GridLayout rows="2*, *, *, *, *">
             <GridLayout columns="*, 2*, *" row="0">
                 <Image src="{{ photo1Url }}" col="0" stretch="aspectFit" class="club-details-image" />
-                <Image src="{{ profilePicUrl }}" col="1" stretch="fill" class="club-details-profile-image" />
+                <Image src="{{ profilePicUrl }}" col="1" stretch="aspectFit" class="club-details-profile-image" />
                 <Image src="{{ photo2Url }}" col="2" stretch="aspectFit" class="clubImage" />
             </GridLayout>
             <GridLayout columns="*,2*" row="1" class="inner-club-details-grid">
@@ -24,9 +24,9 @@
                 <Label text="{{ capacity }}" textWrap="true" col="1" class="capacityLabel" verticalAlignment="center" />
             </GridLayout>
             <GridLayout columns="*, *, *" row="4" class="inner-club-details-grid">
-                <Image src="http://www.100-obekta.zabelejitelnosti.info/wp-content/uploads/2014/12/FacebookLogo-06.png" stretch="aspectFit" col="0" tap="facebookTap" class="club-details-image-link" />
-                <Image src="http://mc-web.se/login/Earth-icon.png" stretch="aspectFit" col="1" tap="siteTap" class="club-details-image-link" />
-                <Image src="http://blog.getsocialize.com/wp-content/uploads/2012/02/twitter.png" stretch="aspectFit" col="2" tap="twitterTap" class="club-details-image-link" />
+                <Image src="~/images/FacebookLogo.png" class="club-details-image-link" stretch="aspectFit" col="0" tap="facebookTap" />
+                <Image src="~/images/EarthIcon.png" stretch="aspectFit" col="1" tap="siteTap" class="club-details-image-link" />
+                <Image src="~/images/TwitterLogo.png" stretch="aspectFit" col="2" tap="twitterTap" class="club-details-image-link" />
             </GridLayout>
         </GridLayout>
     </StackLayout>

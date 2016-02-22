@@ -2,28 +2,33 @@
     <Page.actionBar>
         <ActionBar title="Clubs">
             <ActionBar.actionItems>
-                <ActionItem ios.systemIcon="15" android.systemIcon="ic_menu_refresh" tap="refreshTap" id="refreshIcon"/>
+                <ActionItem ios.systemIcon="15" android.systemIcon="ic_menu_refresh" tap="refreshTap" id="refreshIcon" />
             </ActionBar.actionItems>
         </ActionBar>
     </Page.actionBar>
     <StackLayout>
         <SearchBar hint="SEARCH" id="searchBar" hint="Search clubs.." />
-        <ListView items="{{ currentClub }}" itemTap="clubTap" id="currentClubListView">
-            <ListView.itemTemplate>
-                <GridLayout rows="100" columns="*,2*" class="current-location-club-grid">
-                    <Image src="{{ clubImage }}" stretch="aspectFit" col="0" />
-                    <Label text="{{ clubName }}" textWrap="true" col="1" verticalAlignment="center" />
-                </GridLayout>
-            </ListView.itemTemplate>
-        </ListView>
-        <ListView items="{{ clubsToVisualize }}" itemTap="clubsItemTap" height="150" class="clubsList" id="clubsListView">
-            <ListView.itemTemplate>
-                <StackLayout orientation="horizontal" height="60">
-                    <Image src="{{ ProfilePicUrl }}" stretch="none" />
-                    <Label text="{{ Name }}" stretch="none" verticalAlignment="center" />
-                </StackLayout>
-            </ListView.itemTemplate>
-        </ListView>
-        <Label text="" textWrap="true" id="removeAutoFocus"/>
+        <Label text="Available Club" textWrap="true" class="clubs-available-club-label" />
+        <StackLayout>
+            <ListView items="{{ currentClub }}" itemTap="clubTap" id="currentClubListView">
+                <ListView.itemTemplate>
+                    <GridLayout rows="*, *, *, *" class="current-location-club-grid list-item">
+                        <Label text="{{ clubName }}" textWrap="true" row="1" verticalAlignment="center" class="text-center current-club-name" />
+                        <Image src="{{ clubImage }}" stretch="aspectFit" row="2" height="100" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+            <Label text="Browse More Clubs" textWrap="true" class="text-center clubs-browse-more-label" />
+            <ListView items="{{ clubsToVisualize }}" itemTap="clubsItemTap" height="150" class="clubsList" id="clubsListView">
+                <ListView.itemTemplate>
+                    <StackLayout orientation="horizontal" height="60" class="list-item">
+                        <Image src="{{ ProfilePicUrl }}" stretch="none" />
+                        <Label text="{{ Name }}" stretch="none" verticalAlignment="center" />
+                        <Image src="{{ RatingSrc }}" stretch="aspectFit" />
+                    </StackLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </StackLayout>
+        <Label text="" textWrap="true" id="removeAutoFocus" />
     </StackLayout>
 </Page>
