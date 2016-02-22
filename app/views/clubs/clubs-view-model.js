@@ -14,7 +14,7 @@ class ClubsViewModel extends Observable {
 		this.currentClub.push({
             Id: 0,
             clubImage: globalConstants.defaultNoClubImageUrl,
-            clubName: globalConstants.noClubAvailableText
+            clubName: globalConstants.noClubAvailableMessage
         });
 		this.clubs = new ObservableArray([]);
 		this.clubsToVisualize = new ObservableArray([]);

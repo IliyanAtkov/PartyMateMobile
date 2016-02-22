@@ -57,7 +57,6 @@
      if (!geolocation.isEnabled()) {
          geolocation.enableLocationRequest();
      }
-     console.log("SSSSSS");
  }
 
 
@@ -97,6 +96,29 @@
              .then(function(resultClubs) {
                  for (var i = 0; i < resultClubs.length; i++) {
                      var clubToAdd = resultClubs[i];
+
+                     var ratingAsImgSrc;
+                     switch (clubToAdd.Rating) {
+                         case 1:
+                             ratingAsImgSrc = "~/images/Rating/1.png";
+                             break;
+                         case 2:
+                             ratingAsImgSrc = "~/images/Rating/2.png";
+                             break;
+                         case 3:
+                             ratingAsImgSrc = "~/images/Rating/3.png";
+                             break;
+                         case 4:
+                             ratingAsImgSrc = "~/images/Rating/4.png";
+                             break;
+                         case 5:
+                             ratingAsImgSrc = "~/images/Rating/5.png";
+                             break;
+                         default:
+                             ratingAsImgSrc = "~/images/Rating/0.png";
+                     }
+
+                     clubToAdd.Rating = ratingAsImgSrc;
                      vm.clubs.push(clubToAdd);
                      vm.clubsToVisualize.push(clubToAdd);
                  }
