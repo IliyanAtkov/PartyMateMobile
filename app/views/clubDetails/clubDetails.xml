@@ -1,9 +1,10 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
 	navigatedTo="pageNavigatedTo">
-		<Page.actionBar>
-   			<ActionBar title="{{ clubName }}">
-    	</ActionBar>
-  	</Page.actionBar>
+      <Page.actionBar>
+        <ActionBar title="{{ clubName }}">
+      </ActionBar>
+    </Page.actionBar>
+
   <StackLayout class="clubDetails">
   	<StackLayout orientation="horizontal">
 		<Image src="{{ photo1Url }}" stretch="none" class="clubImage" />
@@ -11,7 +12,7 @@
 		<Image src="{{ photo2Url }}" stretch="none" class="clubImage" />
   	</StackLayout>
 
-    <GridLayout columns="*, *, *" rows="100, 100, 100, 100" >
+    <GridLayout columns="*, *, *" rows="90, 90, 90, 90" >
       <GridLayout columns="120,*" colSpan="3" row="0" col="0" class="innerClubGrid">
         <Label text="adress:" textWrap="true" col="0" col="0" class="clubLabel" />
         <Label text="{{ adress }}" textWrap="true" col="1" class="adressValue" />

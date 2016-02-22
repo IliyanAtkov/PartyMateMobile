@@ -12,7 +12,7 @@ class ClubsViewModel extends Observable {
 
 		this.currentClub = new ObservableArray([]); 
 		this.currentClub.push({
-            clubId: 0,
+            Id: 0,
             clubImage: globalConstants.defaultNoClubImageUrl,
             clubName: globalConstants.noClubAvailableText
         });

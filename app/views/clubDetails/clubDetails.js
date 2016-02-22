@@ -20,16 +20,18 @@ function pageNavigatedTo(args) {
     loader.show();
     services.clubs.getClubDetails(club)
         .then(function(details) {
-        //	console.dir(details);
-        	console.log("succeess getClubDetails");
-        	page.bindingContext = vm.create(details);
+            //	console.dir(details);
+            console.log("succeess getClubDetails");
+            page.bindingContext = vm.create(details);
             loader.hide();
         })
         .catch(function(err) {
             console.dir("IN CLUB DETAILS ERR" + err);
             loader.hide();
         });
+
 }
+
 
 function facebookTap() {
     var vm = page.bindingContext;

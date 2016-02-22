@@ -1,5 +1,34 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded">
-  <StackLayout>
-    <Label text="Tap the button" class="title"/>
-  </StackLayout>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatedTo="pageNavigatedTo">
+ <TabView selectedIndexChanged="indexChange">
+        <TabView.items>
+    <TabViewItem title="Button" tap="btn">
+    	 <TabViewItem title="Add photo">
+                  <TabViewItem.view>
+                    <StackLayout>
+                        <Label text="text"/>
+                    </StackLayout>
+                </TabViewItem.view>
+                 </TabViewItem>
+                <TabViewItem.view>
+                    <StackLayout>
+                        <Button id="myBtn" text="List View" tap="tap" />
+                        <Button text="List View" tap="listTap" />
+                        <Button text="Html View" tap="htmlTap" />
+                        <Button text="Web View" tap="webTap" />
+                    </StackLayout>
+                </TabViewItem.view>
+            </TabViewItem>
+           
+            <TabViewItem title="Review club" tap="reviewClubTap">
+                  <TabViewItem.view>
+                    <StackLayout>
+                        <Button id="myBtn" text="List View" tap="tap" />
+                        <Button text="List View" tap="listTap" />
+                        <Button text="Html View" tap="htmlTap" />
+                        <Button text="Web View" tap="webTap" />
+                    </StackLayout>
+                </TabViewItem.view>
+            </TabViewItem>
+        </TabView.items>
+    </TabView>
 </Page>

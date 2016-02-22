@@ -57,6 +57,7 @@
      if (!geolocation.isEnabled()) {
          geolocation.enableLocationRequest();
      }
+     console.log("SSSSSS");
  }
 
 
@@ -94,8 +95,6 @@
              .then(function(resultClubs) {
                  for (var i = 0; i < resultClubs.length; i++) {
                      var clubToAdd = resultClubs[i];
-                     console.log("clubToAdd");
-                     console.dir(clubToAdd);
                      vm.clubs.push(clubToAdd);
                      vm.clubsToVisualize.push(clubToAdd);
                  }
@@ -113,7 +112,6 @@
              });
      });
  }
-
 
  function updateCurrentClub(location) {
      var nearestClub = null;
@@ -142,7 +140,7 @@
      vm.currentClub.splice(0);
      if (nearestClub === null) {
          vm.currentClub.push({
-             clubId: 0,
+             Id: 0,
              clubImage: globalConstants.defaultNoClubImageUrl,
              clubName: globalConstants.noClubAvailableText
          });
@@ -151,7 +149,7 @@
      }
 
      vm.currentClub.push({
-         clubId: nearestClub.Id,
+         Id: nearestClub.Id,
          clubImage: nearestClub.ProfilePicUrl,
          clubName: nearestClub.Name
      });
@@ -204,13 +202,13 @@
          }).then(function(loc) {
              if (loc) {
                  updateCurrentClub(loc);
-                 if (vm.currentClub.getItem(0).clubId === 0) {
+                 if (vm.currentClub.getItem(0).Id === 0) {
                      notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
                      return;
                  }
 
                  loader.hide();
-                 navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.currentClub.getItem(0));
+                 navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
              }
          }).catch(function(err) {
              console.log("THROWS ERR FROM REFRESH CLUB in clubTap");
@@ -220,7 +218,7 @@
          });
      }
      else {
-        navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.currentClub.getItem(0));
+        navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
      }
  }
 

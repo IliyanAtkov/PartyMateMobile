@@ -7,11 +7,8 @@ function getAllClubs() {
 
 
 function getClubDetails(club) {
-    if (!club.clubId) {
-        club.clubId = club.Id;
-    }
     var promise = new Promise(function(resolve, reject) {
-        requester.get(globalConstants.baseUrl + "api/Clubs/Details/" + club.clubId)
+        requester.get(globalConstants.baseUrl + "api/Clubs/Details/" + club.Id)
             .then(function(resultDetails) {
                 console.log("resultDetails");
                     console.dir(resultDetails);
