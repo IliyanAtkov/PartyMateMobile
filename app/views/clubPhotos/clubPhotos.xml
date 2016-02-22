@@ -4,21 +4,22 @@
             <NavigationButton android.systemIcon="ic_menu_back" tap="backButtonTap" />
         </ActionBar>
     </Page.actionBar>
-    <TabView selectedIndexChanged="indexChange">
+ 	<TabView selectedIndexChanged="indexChange">
         <TabView.items>
             <TabViewItem title="Photos" tap="btn">
                 <TabViewItem.view>
-                    <StackLayout>
+                    <GridLayout>
                          <ListView items="{{ photos }}">
-                            <ListView.itemTemplate width="100">
-                                <StackLayout>
-                                    <Image src="{{ image }}" stretch="none" />
-                                    <Button text="Like" />
-                                    <Button text="Dislike" />
-                                </StackLayout>
+                            <ListView.itemTemplate>
+                                <GridLayout columns="*, *, *, *, *" rows="*, *">
+                                    <Image src="http://www.keenthemes.com/preview/conquer/assets/plugins/jcrop/demos/demo_files/image1.jpg" colspan="5"  stretch="aspectFit" />
+                                    <Image text="Like" row="1" col="0" colspan="2" tap="likeTap" />
+                                    <Label text="14" row="1" col="2" class="clubPhotosVoteLabel" />
+                                    <Image text="Dislike" row="1" col="3" colspan="2" tap="dislikeTap" />
+                                </GridLayout>
                             </ListView.itemTemplate>
                         </ListView>
-                    </StackLayout>
+                    </GridLayout>
                 </TabViewItem.view>
             </TabViewItem>
             <TabViewItem title="Add photo">
@@ -30,11 +31,16 @@
                  </TabViewItem>
             <TabViewItem title="Reviews">
                   <TabViewItem.view>
-                    <StackLayout>
-                       <Label text="Tell us what you thinking: " />
-                       <TextView text="" id="userOpinion" />
-                       <Button text="Submit" tap="submitBtn" />
-                    </StackLayout>
+                  	<GridLayout rows="0*,3*,1*">
+	                    <StackLayout row="1"> 
+	                       <Label text="Tell us what you thinking: " class="clubReviewLabel" />
+	                       <TextView text="" id="userOpinion" height="500"/>
+	                      
+	                    </StackLayout>
+	                    <StackLayout row="2">
+	                    	<Image src="http://www.thehandlebarhudson.com/orange-submission-button.png" text="Submit" tap="submitBtn" height="120" />
+	                   	</StackLayout>
+                	</GridLayout>
                 </TabViewItem.view>
             </TabViewItem>
         </TabView.items>

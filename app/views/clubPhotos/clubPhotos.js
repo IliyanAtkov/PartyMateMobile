@@ -12,12 +12,10 @@ var notifier = require("../../Helpers/notifier");
 var globalConstants = require("../../globalConstants");
 var navigator = require("../../Helpers/navigator");
 
-
 function pageNavigatedTo(args) {
     page = args.object;
     var club = args.context;
     page.bindingContext = vm.create(club, services);
-
 
     // loader.show();
     // services.clubs.getClubDetails(club)
@@ -56,8 +54,19 @@ function submitBtn(args) {
     }
 }
 
+function dislikeTap(args) {
+
+}
+
+function likeTap(args) {
+
+}
+
+
 module.exports = {
     pageNavigatedTo,
     indexChange,
-    backButtonTap
+    backButtonTap,
+    dislikeTap,
+    likeTap
 };

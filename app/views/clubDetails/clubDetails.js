@@ -13,6 +13,7 @@ var notifier = require("../../Helpers/notifier");
 var globalConstants = require("../../globalConstants");
 var navigator = require("../../Helpers/navigator");
 
+
 function pageNavigatedTo(args) {
     page = args.object;
     var club = args.context;

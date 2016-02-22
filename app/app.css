@@ -70,3 +70,25 @@
 .show {
 	display: none;
 }
+
+.text-center {
+	text-align: center;
+}
+.clubPhotosVoteLabel {
+	text-align: center;
+	vertical-align: center;
+	font-size: 25;
+	font-weight: bold;
+}
+
+.clubReviewLabel {
+	font-size: 25;
+}
+
+#userOpinion {
+	font-size: 35;
+}
+
+.submitReviewBtn {
+	vertical-align: bottom;
+}
