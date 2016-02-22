@@ -10,15 +10,14 @@ class ClubDetailsViewModel extends Observable {
         this.setData(club);
     }
 
-    setData(club) {
-        console.log("DAA");
-        
+    setData(club) {        
         if (club.clubName) {
             this.clubName = club.Name;
         }
         else {
             this.clubName = globalConstants.defaultNoClubDetailsName;
         }
+
         if (club.SiteUrl) {
             this.siteUrl = club.SiteUrl;
         }
@@ -40,6 +39,7 @@ class ClubDetailsViewModel extends Observable {
         else {
             this.profilePicUrl = globalConstants.defaultNoClubDetailsProfileImageUrl;
         }
+        
         if (club.photos.length == 2) {
             this.photo1Url = club.photos[0];
             this.photo2Url = club.photos[1];

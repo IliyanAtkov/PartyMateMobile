@@ -17,6 +17,7 @@
  var globalConstants = require("../../globalConstants");
  var requester = require("../../Helpers/requester");
 
+ var location = undefined;
  var initialPageLoad = true;
 
  function pageLoaded(args) {
@@ -56,22 +57,25 @@
      if (!geolocation.isEnabled()) {
          geolocation.enableLocationRequest();
      }
+     console.log("SSSSSS");
  }
 
 
  function refreshTap(args) {
      var listView = view.getViewById(page, "clubsListView");
-     if (!geolocation.isEnabled()) {
-         dialogs.alert({
-             title: globalConstants.noGPSTitle,
-             message: globalConstants.noGPSMessage,
-             okButtonText: globalConstants.OKButtonText
-         }).then(function() {
-             enableLocation();
-         });
 
-         return;
-     }
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ UNCOMMENT THIS
+     // if (!geolocation.isEnabled()) {
+     //     dialogs.alert({
+     //         title: globalConstants.noGPSTitle,
+     //         message: globalConstants.noGPSMessage,
+     //         okButtonText: globalConstants.OKButtonText
+     //     }).then(function() {
+     //         enableLocation();
+     //     });
+
+     //     return;
+     // }
 
      if (!connection.isEnabled) {
          notifier.notify(globalConstants.noConnectionTitle, globalConstants.noConnectionMessage);
@@ -120,6 +124,8 @@
              longitude: club.Location.Longitude
          };
 
+         var location = currentClubLocation; // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
+
          var distance = geolocation.distance(currentClubLocation, location);
          if (distance < globalConstants.rangeForClubsInMeters &&
              nearestClubDistance === null) {
@@ -135,19 +141,34 @@
          }
      });
 
+     vm.currentClub.splice(0);
      if (nearestClub === null) {
-         page.bindingContext.clubId = 0;
-         page.bindingContext.clubImage = globalConstants.defaultNoClubImageUrl;
-         page.bindingContext.clubName = globalConstants.noClubAvailableText;
+         vm.currentClub.push({
+             Id: 0,
+             clubImage: globalConstants.defaultNoClubImageUrl,
+             clubName: globalConstants.noClubAvailableText
+         });
+
          return;
      }
 
-     this.clubId = nearestClub.Id;
-     this.clubImage = nearestClub.ProfilePicUrl;
-     this.clubName = nearestClub.Name;
+     vm.currentClub.push({
+         Id: nearestClub.Id,
+         clubImage: nearestClub.ProfilePicUrl,
+         clubName: nearestClub.Name
+     });
+
+     var currentClubListView = view.getViewById(page, "currentClubListView");
+     currentClubListView.refresh();
  }
 
  function refreshClubInRange() {
+
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
+     updateCurrentClub();
+     return;
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
      dialogs.alert({
          title: globalConstants.willStartWorkingWithDataTitle,
          message: globalConstants.updatingCurrentClubPositionMessage,
@@ -155,12 +176,13 @@
      }).then(function() {
          loader.show();
          geolocation.getCurrentLocation({
-             desiredAccuracy: 3,
+             desiredAccuracy: 2,
              updateDistance: 10,
-             maximumAge: 50,
+             maximumAge: 3000,
              timeout: 99999
          }).then(function(loc) {
              if (loc) {
+                 location = loc;
                  updateCurrentClub(loc);
                  loader.hide();
              }
@@ -176,24 +198,47 @@
      });
  }
 
-
  function clubTap() {
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
+     loader.show();
+     if (vm.currentClub.getItem(0).Id === 0) {
+         notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
+         return;
+     }
+
+     loader.hide();
+     navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
+     return;
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
      loader.show();
      geolocation.getCurrentLocation({
-         desiredAccuracy: 3,
+         desiredAccuracy: 2,
          updateDistance: 10,
-         maximumAge: 50,
+         maximumAge: 3000,
          timeout: 99999
      }).then(function(loc) {
          if (loc) {
              updateCurrentClub(loc);
-             if (vm.clubId === 0) {
+             if (vm.currentClub.getItem(0).Id === 0) {
                  notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
                  return;
              }
 
              loader.hide();
-             navigate.navigateAnimated("./views/clubPhotos/clubPhotos", this.clubId);
+             var navEntry = {
+                 moduleName: "./views/clubPhotos/clubPhotos",
+                 context: vm.currentClub.getItem(0),
+                 animated: true,
+                 navigationTransition: {
+                     transition: "flip",
+                     duration: 350,
+                     curve: "easeIn"
+                 },
+                 backstackVisible: false
+             };
+
+             navigate.navigateWithEntry(navEntry);
          }
      }).catch(function(err) {
          console.log("THROWS ERR FROM REFRESH CLUB in clubTap");

@@ -4,15 +4,17 @@ let Observable = require("data/observable").Observable;
 let ObservableArray = require('data/observable-array').ObservableArray;
 
 var globalConstants = require('../../globalConstants');
-
+ 
 class ClubPhotosViewModel extends Observable {
-	constructor(services) {
+	constructor(club, services) {
 		super();
 		this.services = services;
 
-		this.photos = new ObservableArray([]);
+		this.clubName = club.clubName;
+		this.clubProfileImage = club.clubImage;
 
-		var image1 = new Observable();
+		this.photos = new ObservableArray([]);
+var image1 = new Observable();
 		image1.set("image", "http://tips.betdownload.com/cf/images/ndh/2013/12/create-a-shutdown-or-restart-your-desktop-icons-1.jpg");
 				var image2 = new Observable();
 		image2.set("image", "http://tips.betdownload.com/cf/images/ndh/2013/12/create-a-shutdown-or-restart-your-desktop-icons-1.jpg");
@@ -29,7 +31,7 @@ class ClubPhotosViewModel extends Observable {
 
 
 module.exports = {
-	create: function(club) {
-		return new ClubPhotosViewModel(club);
+	create: function(club, services) {
+		return new ClubPhotosViewModel(club, services);
 	}
 };

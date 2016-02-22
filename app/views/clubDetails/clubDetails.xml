@@ -1,34 +1,33 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
-	navigatedTo="pageNavigatedTo">
-      <Page.actionBar>
-        <ActionBar title="{{ clubName }}">
-      </ActionBar>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatedTo="pageNavigatedTo">
+    <Page.actionBar>
+        <ActionBar title="{{ clubName }}" icon="">
+            <NavigationButton android.systemIcon="ic_menu_back" tap="backButtonTap" />
+        </ActionBar>
     </Page.actionBar>
-
-  <StackLayout class="clubDetails">
-  	<StackLayout orientation="horizontal">
-		<Image src="{{ photo1Url }}" stretch="none" class="clubImage" />
-		<Image src="{{ profilePicUrl }}" stretch="none" class="clubProfileImage" />
-		<Image src="{{ photo2Url }}" stretch="none" class="clubImage" />
-  	</StackLayout>
-
-    <GridLayout columns="*, *, *" rows="90, 90, 90, 90" >
-      <GridLayout columns="120,*" colSpan="3" row="0" col="0" class="innerClubGrid">
-        <Label text="adress:" textWrap="true" col="0" col="0" class="clubLabel" />
-        <Label text="{{ adress }}" textWrap="true" col="1" class="adressValue" />
-      </GridLayout>
-      <GridLayout columns="120,*" colSpan="3" row="1" class="innerClubGrid">
-        <Label text="phone:" textWrap="true" col="0" class="clubLabel" />
-        <Button text="{{ phone }}" textWrap="true" col="1" tap="phoneTap" class="phoneBtn"/>
-      </GridLayout>
-      <GridLayout columns="120,*" colSpan="3" row="2" class="innerClubGrid">
-        <Label text="capacity:" textWrap="true" col="0" class="clubLabel" />
-        <Label text="{{ capacity }}" textWrap="true" col="1" class="capacityLabel" />
-      </GridLayout>
- 
-      <Button text="Facebook" textWrap="true" row="3" col="0" tap="facebookTap" class="facebookBtn link" />
-      <Button text="Twitter" textWrap="true" row="3" col="1" tap="twitterTap" class="twitterBtn link" />
-      <Button text="Site" textWrap="true" row="3" col="2"  tap="siteTap" class="siteBtn link" />
-     </GridLayout>
-  </StackLayout>
+    <StackLayout class="clubDetails">
+        <GridLayout rows="2*, *, *, *, *">
+            <GridLayout columns="*, 2*, *" row="0">
+                <Image src="{{ photo1Url }}" col="0" stretch="aspectFit" class="club-details-image" />
+                <Image src="{{ profilePicUrl }}" col="1" stretch="fill" class="club-details-profile-image" />
+                <Image src="{{ photo2Url }}" col="2" stretch="aspectFit" class="clubImage" />
+            </GridLayout>
+            <GridLayout columns="*,2*" row="1" class="inner-club-details-grid">
+                <Label text="adress:" textWrap="true" col="0" col="0" class="clubs-details-label" verticalAlignment="center" />
+                <Label text="{{ adress }}" textWrap="true" col="1" class="adressValue" verticalAlignment="center" />
+            </GridLayout>
+            <GridLayout columns="*, 2*" row="2" class="inner-club-details-grid">
+                <Label text="phone:" textWrap="true" col="0" class="clubs-details-label" verticalAlignment="center" />
+                <Button text="{{ phone }}" textWrap="true" col="1" tap="phoneTap" class="phoneBtn" />
+            </GridLayout>
+            <GridLayout columns="*,2*" row="3" class="inner-club-details-grid">
+                <Label text="capacity:" textWrap="true" col="0" class="clubs-details-label" verticalAlignment="center" />
+                <Label text="{{ capacity }}" textWrap="true" col="1" class="capacityLabel" verticalAlignment="center" />
+            </GridLayout>
+            <GridLayout columns="*, *, *" row="4" class="inner-club-details-grid">
+                <Image src="http://www.100-obekta.zabelejitelnosti.info/wp-content/uploads/2014/12/FacebookLogo-06.png" stretch="aspectFit" col="0" tap="facebookTap" class="club-details-image-link" />
+                <Image src="http://mc-web.se/login/Earth-icon.png" stretch="aspectFit" col="1" tap="siteTap" class="club-details-image-link" />
+                <Image src="http://blog.getsocialize.com/wp-content/uploads/2012/02/twitter.png" stretch="aspectFit" col="2" tap="twitterTap" class="club-details-image-link" />
+            </GridLayout>
+        </GridLayout>
+    </StackLayout>
 </Page>
