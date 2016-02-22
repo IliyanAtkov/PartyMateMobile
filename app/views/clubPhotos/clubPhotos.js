@@ -4,23 +4,30 @@ var page = require("ui/page");
 var view = require("ui/core/view");
 var loader = require("nativescript-loading-indicator");
 var utilityModule = require("utils/utils");
-
+var sliderModule = require("ui/slider");
 var services = require('../../services');
 var vm = require('./clubPhotos-view-model');
 var connection = require("../../Helpers/connection");
 var notifier = require("../../Helpers/notifier");
 var globalConstants = require("../../globalConstants");
 var navigator = require("../../Helpers/navigator");
+var requester = require("../../Helpers/requester");
+
 
 function pageNavigatedTo(args) {
     page = args.object;
     var club = args.context;
     page.bindingContext = vm.create(club, services);
-
+    var slider = new sliderModule.Slider();
+    slider.maxValue = 5;
+    slider.value = 3;
+    slider.minValue = 1;
     // loader.show();
     // services.clubs.getClubDetails(club)
     //     .then(function(details) {
     //         //   console.dir(details);
+
+
     //         console.log("succeess getClubDetails");
     //         page.bindingContext = vm.create(details);
     //         loader.hide();
@@ -50,7 +57,15 @@ function backButtonTap(args) {
 function submitBtn(args) {
     var textView = view.getViewById(page, "userOpinion");
     if (textView.text != undefined && textView.text.count != 0) {
-        
+        // options = {
+        //     data: {
+        //         ClubId: 
+        //     },
+        //     headers: {
+        //         "content-type" : "application/json"
+        //     }
+        // };
+        // requester.post(globalConstants.baseUrl + "api/Clubs/All", options);
     }
 }
 
