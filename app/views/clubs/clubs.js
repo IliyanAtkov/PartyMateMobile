@@ -112,7 +112,7 @@ function refreshTap(args) {
     });
 }
 
-function refreshClubInRange() {
+function updateCurrentClub(location) {
     var nearestClub = null;
     var nearestClubDistance = null;
     vm.clubs.forEach(function(club) {
@@ -121,7 +121,7 @@ function refreshClubInRange() {
             longitude: club.Location.Longitude
         };
 
-        var loc = currentClubLocation;
+        var loc = currentClubLocation; // ~~~~~~~~~~~~~~~~~~~~~~~~~ USE LOCATION PARAM INSTEAD OF LOC
 
         var distance = geolocation.distance(currentClubLocation, loc);
         if (distance < globalConstants.rangeForClubsInMeters &&
@@ -157,8 +157,12 @@ function refreshClubInRange() {
 
     var currentClubListView = view.getViewById(page, "currentClubListView");
     currentClubListView.refresh();
+}
 
-    return;
+function refreshClubInRange() {
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MOVE THIS
+    updateCurrentClub("ADD LOCATION HERE")
+    return; // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
 
     dialogs.alert({
         title: globalConstants.willStartWorkingWithDataTitle,
@@ -167,52 +171,55 @@ function refreshClubInRange() {
     }).then(function() {
         loader.show();
         geolocation.getCurrentLocation({
-                desiredAccuracy: 3,
-                updateDistance: 10,
-                maximumAge: 3000,
-                timeout: 99999
-            }).then(function(loc) {
-                if (loc) {
-                    console.log("LAT: " + loc.latitude);
-                    console.log("LONG: " + loc.longitude);
-                    for (var i = 0; i < vm.clubs.length; i++) {
-                        var currentClub = vm.clubs[i];
-                        var currentClubLocation = {
-                            latitude: currentClub.Location.Latitude,
-                            longitude: currentClub.Location.Longitude
-                        };
-
-                        if (geolocation.distance(currentClubLocation, loc) < 200) {
-                            vm.clubId = currentClub.Id;
-                            vm.clubImage = currentClub.ProfilePicUrl;
-                            vm.clubText = currentClub.Name;
-
-                            console.dir("res : " + currentClub);
-                            break;
-                        }
-                    }
-                }
-
+            desiredAccuracy: 3,
+            updateDistance: 10,
+            maximumAge: 3000,
+            timeout: 99999
+        }).then(function(loc) {
+            if (loc) {
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MOVE HERE
                 loader.hide();
-            })
-            .catch(function(err) {
-                console.log("THROWS ERR FROM REFRESH CLUB");
-                loader.hide();
-                notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
-            });
+            }
+        }).catch(function(err) {
+            console.log("THROWS ERR FROM REFRESH CLUB");
+            loader.hide();
+            notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
+        });
     }, function(e) {
         loader.hide();
         notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
     });
 }
 
-function clubTap() {
-    if (vm.currentClub.getItem(0).clubId === 0) {
-        notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
-        return;
-    }
 
-    navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.currentClub.getItem(0));
+function clubTap() {
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
+    if (vm.currentClub.getItem(0).clubId === 0) {
+        if (vm.clubId === null) {
+            notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
+            return;
+        }
+
+        navigate.navigateAnimated("./views/clubDetails/clubDetails", vm.currentClub.getItem(0));
+    }
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ UNCOMMENT THIS ON DEVICE
+    // geolocation.getCurrentLocation({
+    //         desiredAccuracy: 3,
+    //         updateDistance: 10,
+    //         maximumAge: 3000,
+    //         timeout: 99999
+    //     }).then(function(loc) {
+    //         if (loc) {
+    //             updateCurrentClub(loc);
+    //             loader.hide();
+    //         }
+    //     }).catch(function(err) {
+    //         console.log("THROWS ERR FROM REFRESH CLUB");
+    //         loader.hide();
+    //         notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
+    //     });
 }
 
 function clubsItemTap(args) {
