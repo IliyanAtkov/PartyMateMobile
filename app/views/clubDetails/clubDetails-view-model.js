@@ -7,8 +7,6 @@ var globalConstants = require('../../globalConstants');
 class ClubDetailsViewModel extends Observable {
     constructor(club) {
         super();
-        console.log("CLUB");
-        console.dir(club);
         this.setData(club);
     }
 

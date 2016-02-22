@@ -7,6 +7,9 @@ function getAllClubs() {
 
 
 function getClubDetails(club) {
+    if (!club.clubId) {
+        club.clubId = club.Id;
+    }
     var promise = new Promise(function(resolve, reject) {
         requester.get(globalConstants.baseUrl + "api/Clubs/Details/" + club.clubId)
             .then(function(resultDetails) {

@@ -94,6 +94,8 @@
              .then(function(resultClubs) {
                  for (var i = 0; i < resultClubs.length; i++) {
                      var clubToAdd = resultClubs[i];
+                     console.log("clubToAdd");
+                     console.dir(clubToAdd);
                      vm.clubs.push(clubToAdd);
                      vm.clubsToVisualize.push(clubToAdd);
                  }
