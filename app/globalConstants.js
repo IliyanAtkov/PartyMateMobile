@@ -1,6 +1,7 @@
 'use strict';
 
 let globalConstantsModule = {
+	rangeForClubsInMeters: 200,
 	defaultNoClubImageUrl: "http://vignette2.wikia.nocookie.net/horrormovies/images/e/e3/No_Image.png/revision/latest?cb=20140329231046",
 	startUpView: './views/clubs/clubs',
 	baseUrl: 'http://partymate.apphb.com/',

@@ -2,16 +2,20 @@
     <Page.actionBar>
         <ActionBar title="Clubs">
             <ActionBar.actionItems>
-                <ActionItem ios.systemIcon="15" android.systemIcon="ic_menu_refresh" tap="refreshTap" />
+                <ActionItem ios.systemIcon="15" android.systemIcon="ic_menu_refresh" tap="refreshTap" id="refreshIcon"/>
             </ActionBar.actionItems>
         </ActionBar>
     </Page.actionBar>
     <StackLayout>
         <SearchBar hint="SEARCH" id="searchBar" hint="Search clubs.." />
-        <GridLayout rows="100" columns="*,2*" class="current-location-club-grid">
-            <Image src="{{ clubImage }}" stretch="aspectFit" col="0" />
-            <Label text="{{ clubText }}" textWrap="true" id="clubText" tap="clubTap" col="1" verticalAlignment="center"/>
-        </GridLayout>
+        <ListView items="{{ currentClub }}" itemTap="clubTap" id="currentClubListView">
+            <ListView.itemTemplate>
+                <GridLayout rows="100" columns="*,2*" class="current-location-club-grid">
+                    <Image src="{{ clubImage }}" stretch="aspectFit" col="0" />
+                    <Label text="{{ clubName }}" textWrap="true" col="1" verticalAlignment="center" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
         <ListView items="{{ clubsToVisualize }}" itemTap="clubsItemTap" height="150" class="clubsList" id="clubsListView">
             <ListView.itemTemplate>
                 <StackLayout orientation="horizontal" height="60">
@@ -20,5 +24,6 @@
                 </StackLayout>
             </ListView.itemTemplate>
         </ListView>
+        <Label text="AutoFocusMe" textWrap="true" id="removeAutoFocus" style="margin-top: 9999"/>
     </StackLayout>
 </Page>

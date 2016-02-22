@@ -1,16 +1,17 @@
 'use strict';
 
-let services = require('../../services');
-let page = require("ui/page");
-let vm = require('./clubDetails-view-model');
+
+var page = require("ui/page");
+var services = require('../../services');
+var vm = require('./clubDetails-view-model');
 var utilityModule = require("utils/utils");
 var phone = require( "nativescript-phone" );
 
 function pageNavigatedTo(args) {
   page = args.object;
   let club = args.context;
-
-  page.bindingContext = vm.create(club.id, club.name, services);
+  console.dir(club);
+  page.bindingContext = vm.create(club, services);
 }
 
 function facebookTap() {

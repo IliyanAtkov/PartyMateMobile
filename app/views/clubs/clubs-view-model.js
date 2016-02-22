@@ -10,12 +10,13 @@ class ClubsViewModel extends Observable {
 		super();
 		this.services = services;
 
-		this.clubId = null;
-		this.clubImage = globalConstants.defaultNoClubImageUrl;
-		this.clubText = globalConstants.noClubAvailableText;
-
-		this.clubs = new ObservableArray([]); 
-
+		this.currentClub = new ObservableArray([]); 
+		this.currentClub.push({
+            clubId: 0,
+            clubImage: globalConstants.defaultNoClubImageUrl,
+            clubName: globalConstants.noClubAvailableText
+        });
+		this.clubs = new ObservableArray([]);
 		this.clubsToVisualize = new ObservableArray([]);
 		for (var i = 0; i < this.clubs.length; i++) {
 			this.clubsToVisualize.push(this.clubs.getItem(i));
