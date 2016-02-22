@@ -15,19 +15,18 @@ var globalConstants = require("../../globalConstants");
 function pageNavigatedTo(args) {
     page = args.object;
     var club = args.context;
-
-    page.bindingContext = vm.create(club, services);
-
+    console.log("Club " + club);
+    console.dir(club);
     loader.show();
     services.clubs.getClubDetails(club)
         .then(function(details) {
-        	console.dir(details);
-        	vm.load(details);
+        //	console.dir(details);
+        	console.log("succeess getClubDetails");
+        	page.bindingContext = vm.create(details);
             loader.hide();
         })
         .catch(function(err) {
             console.dir("IN CLUB DETAILS ERR" + err);
-            vm.load(null);
             loader.hide();
         });
 }
@@ -44,6 +43,7 @@ function twitterTap() {
 
 function phoneTap() {
     var vm = page.bindingContext;
+    console.log("phone ", vm.phone);
     phone.dial(vm.phone, true);
 }
 

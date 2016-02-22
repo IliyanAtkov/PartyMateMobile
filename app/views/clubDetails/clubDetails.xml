@@ -1,14 +1,14 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
 	navigatedTo="pageNavigatedTo">
 		<Page.actionBar>
-   			<ActionBar title="{{ name }}">
+   			<ActionBar title="{{ clubName }}">
     	</ActionBar>
   	</Page.actionBar>
   <StackLayout class="clubDetails">
   	<StackLayout orientation="horizontal">
-		<Image src="{{ photo1Url }}" stretch="fill" class="clubImage" />
-		<Image src="{{ profilePicUrl }}" stretch="fill" class="clubProfileImage" />
-		<Image src="{{ photo2Url }}" stretch="fill" class="clubImage" />
+		<Image src="{{ photo1Url }}" stretch="none" class="clubImage" />
+		<Image src="{{ profilePicUrl }}" stretch="none" class="clubProfileImage" />
+		<Image src="{{ photo2Url }}" stretch="none" class="clubImage" />
   	</StackLayout>
 
     <GridLayout columns="*, *, *" rows="100, 100, 100, 100" >

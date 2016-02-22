@@ -5,10 +5,13 @@ function getAllClubs() {
 
 }
 
+
 function getClubDetails(club) {
     var promise = new Promise(function(resolve, reject) {
         requester.get(globalConstants.baseUrl + "api/Clubs/Details/" + club.clubId)
             .then(function(resultDetails) {
+                console.log("resultDetails");
+                    console.dir(resultDetails);
                 resolve(resultDetails);
             })
             .catch(function(err) {

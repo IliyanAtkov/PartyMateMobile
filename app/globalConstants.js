@@ -23,7 +23,7 @@ let globalConstantsModule = {
 	updatingCurrentClubPositionMessage: "Will update your position and find club near you! :)",
 
 	defaultNoClubDetailsName: "PartyMate",
-	defaultNoClubDetailsSiteUrl: baseUrl,
+	defaultNoClubDetailsSiteUrl: 'http://partymate.apphb.com/',
 	defaultNoClubDetailsProfileImageUrl: "",
 	defaultNoClubDetailsPhoto1Url: "",
 	defaultNoClubDetailsPhoto2Url: ""
