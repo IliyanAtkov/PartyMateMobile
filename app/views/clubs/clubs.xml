@@ -24,7 +24,7 @@
                     <StackLayout orientation="horizontal" height="60" class="list-item">
                         <Image src="{{ ProfilePicUrl }}" stretch="none" />
                         <Label text="{{ Name }}" stretch="none" verticalAlignment="center" />
-                        <Image src="{{ RatingSrc }}" stretch="aspectFit" />
+                        <Image src="{{ Rating }}" stretch="aspectFit" />
                     </StackLayout>
                 </ListView.itemTemplate>
             </ListView>

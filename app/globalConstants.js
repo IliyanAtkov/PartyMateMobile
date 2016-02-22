@@ -11,6 +11,7 @@ let globalConstantsModule = {
 	noConnectionTapRefreshMessage: "You are not connected to the internet! Tap Refresh icon when you are ready. :)",
 	noClubAvailableTitle: ":(",
 	noClubAvailableMessage: "You are not in club at the moment. Use the Refresh icon when you are somewhere else.",
+	noClubAvailableText: "No club.",
 	noGPSTitle: "Whoops..",
 	noGPSMessage: "Location Services are not enabled at the moment.",
 	noGPSMessage: "Will enable Location Services. Please Tap Refresh icon again after it. :)",

@@ -21,7 +21,7 @@
  var initialPageLoad = true;
 
  function pageLoaded(args) {
-     page = args.object;
+     page = args.object; 
      page.bindingContext = vm;
      prepareSeachBar();
      setTimeout(function() {
