@@ -9,10 +9,10 @@
             <TabViewItem title="Photos" tap="btn">
                 <TabViewItem.view>
                     <GridLayout>
-                        <ListView items="{{ photos }}">
+                        <ListView items="{{ photos }}" id="photosListView">
                             <ListView.itemTemplate>
                                 <GridLayout columns="*, *, *" rows="*, *">
-                                    <Image src="{{ Path}}" colspan="3" stretch="aspectFit" />
+                                    <Image src="{{ Path }}" colspan="3" stretch="aspectFit" />
                                     <Image src="~/images/LikeIcon.png" text="Like" row="1" col="0" tap="likeTap" />
                                     <Label text="{{ likes }}" row="1" col="1" class="clubPhotosVoteLabel" />
                                     <Image src="~/images/DislikeIcon.png" row="1" col="3" tap="dislikeTap" />
@@ -40,7 +40,7 @@
                         </StackLayout>
                         <StackLayout row="2" class="sliderStackLayout">
                             <Label text="{{sliderValue}}" class="text-center" />
-                            <Slider minValue="1" maxValue="5" value="{{ sliderValue }}" class="slider" />
+                            <Slider minValue="1" maxValue="5" value="{{ sliderValue }}" class="slider" id="sliderReview" />
                         </StackLayout>
                         <StackLayout row="3">
                             <Image src="http://www.thehandlebarhudson.com/orange-submission-button.png" tap="submitBtn" height="120" />

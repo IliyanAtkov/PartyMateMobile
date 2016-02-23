@@ -123,6 +123,7 @@ listView {
 	vertical-align: center;
 	font-size: 25;
 	font-weight: bold;
+	color: red;
 }
 
 .clubReviewLabel {

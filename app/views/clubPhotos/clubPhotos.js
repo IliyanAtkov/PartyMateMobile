@@ -52,6 +52,7 @@ function loadImages() {
                 var imageToAdd = resultImages[i];
 
                 if (imageToAdd !== undefined && imageToAdd.Path.length !== 0) {
+                    console.dir(imageToAdd);
                     imageToAdd.Id = i;
                     vm.photos.push(imageToAdd);
                 }
@@ -74,43 +75,48 @@ function backButtonTap(args) {
 
 function submitBtn(args) {
     var textView = view.getViewById(page, "userOpinion");
+    var slider = view.getViewById(page, "sliderReview");
+    console.dir(slider);
+    // ~~~~~~~~~~~~~~~~~~~~~~~~
     let vm = page.bindingContext;
     console.log("ID " + vm.clubId);
     if (textView.text !== undefined && textView.text.count !== 0) {
         var options = {
             data: {
-                "ClubId": 1,
-                "Content": "MN IAKOWQWEQWE",
+                "ClubId": vm.clubId,
+                "Content": textView.text,
                 "Rating": 5
             },
             headers: {
                 "Content-Type": "application/json"
             }
         }
-
-        requester.post(globalConstants.baseUrl + "api/Clubs/Review", options)
-            .then(function(resultClubs) {
-                console.log("Da");
-                console.dir(resultClubs);
-            })
-            .catch(function(err) {
-                console.log(err.statusCode);
-                console.dir(err);
-                console.log("SOMETHING BAD FROM REVIEW CLUBS");
-                // loader.hide();
-                // notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
-            });
     }
+
+    requester.post(globalConstants.baseUrl + "api/Clubs/Review", options)
+        .then(function(result) {
+            console.log("Da");
+            console.dir(resultClubs);
+            notifier.notify("Club reviewed!", "That was important.");
+        })
+        .catch(function(err) {
+            console.log(err.statusCode);
+            console.dir(err);
+            console.log("SOMETHING BAD FROM REVIEW CLUBS");
+            // loader.hide();
+            // notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
+        });
 }
 
 function dislikeTap(args) {
     var image = args.object;
     var item = image.bindingContext;
 
-    services.images.rateClubImage(item.Id, 1)
+    services.images.rateClubImage(item.Id, -1)
         .then(function(result) {
             console.log("RES: " + result);
             this.item.likes = result;
+            view.getViewById(page, "photosListView").refresh();
         })
         .catch(function(err) {
             console.log("ERR dislike");
@@ -126,9 +132,10 @@ function likeTap(args) {
         .then(function(result) {
             console.log("RES: " + result);
             this.item.likes = result;
+            view.getViewById(page, "photosListView").refresh();
         })
         .catch(function(err) {
-            console.log("ERR dislike");
+            console.log("ERR like");
             console.dir(err);
         });
 }
@@ -137,31 +144,26 @@ function likeTap(args) {
 function openCameraTap() {
     camera.takePicture()
         .then(function(photo) {
-            console.log(photo);
             viewModel.addImagePreview = photo;
         });
 }
 
-// function savePicture(photo) {
-//     console.log(photo)
-//     console.dir(photo);
-//     var imageString = photo.toBase64String('.jpg', 100);
-//     var imageFile = {
-//         Filename: Math.random().toString(36).substring(2, 15) + ".jpg",
-//         ContentType: "image/jpeg",
-//         base64: imageString
-//     };
-
-//     el.Files.create(imageFile).then(function(response) {
-//         console.dir(response)
-//         var imageUri = response.result['Uri'];
-//         console.log(imageUri);
-
-//     });
-// }
-
 function uploadImageTap() {
-    camera.savePicture(page.bindingContext.addImagePreview);
+    camera.savePicture(page.bindingContext.addImagePreview)
+        .then(function(link) {
+            services.images.addImageLink(link)
+                .then(function(res) {
+                    notifier.notify("Yay!", "Image added!");
+                    view.getViewById(page, "photosListView").refresh();
+                })
+                .catch(function(err) {
+                    notifier.notify("Woah!", "Bad things happened!");
+                });
+        })
+        .catch(function(err) {
+            console.log("BAD ERROR FROM UPLOAD IMAGE TAP")
+            console.dir(err);
+        });
 }
 
 module.exports = {

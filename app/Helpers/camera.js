@@ -10,25 +10,29 @@ function takePicture(imageView) {
             }
 
             return photo;
-        })
-}; 
+        });
+}
 
 function savePicture(photo) {
-    console.log(photo)
-    console.dir(photo);
-    var imageString = photo.toBase64String('.jpg', 100);
-    var imageFile = {
-        Filename: Math.random().toString(36).substring(2, 15) + ".jpg",
-        ContentType: "image/jpeg",
-        base64: imageString
-    };
+    var promise = new Promise(function(resolve, reject) {
+        var imageString = photo.toBase64String('.jpg', 100);
+        var imageFile = {
+            Filename: Math.random().toString(36).substring(2, 15) + ".jpg",
+            ContentType: "image/jpeg",
+            base64: imageString
+        };
 
-    el.Files.create(imageFile).then(function(response) {
-        console.dir(response)
-        var imageUri = response.result['Uri'];
-        console.log(imageUri);
-
+        el.Files.create(imageFile).then(function(response) {
+            console.dir(response)
+            var imageUri = response.result['Uri'];
+            console.log(imageUri);
+            resolve(imageUri);
+        }, function(err) {
+            reject(err);
+        });
     });
+
+    return promise;
 }
 
 module.exports = {

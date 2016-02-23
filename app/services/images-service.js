@@ -1,6 +1,29 @@
 var requester = require("../Helpers/requester");
 var globalConstants = require("../globalConstants");
 
+function addImageLink(clubId, link) {
+    var promise = new Promise(function(resolve, reject) {
+        var options = {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                "ClubId": clubId,
+                "Path": link
+            }
+        }
+        requester.post(globalConstants.baseUrl + "api/Clubs/HiddenImages", options)
+            .then(function(resultDetails) {
+                resolve(resultDetails);
+            })
+            .catch(function(err) {
+                reject(err);
+            });
+    });
+
+    return promise;
+}
+
 function rateClubImage(imageId, rating) {
     // TODO: check for rating value then make request
 
@@ -14,7 +37,8 @@ function rateClubImage(imageId, rating) {
                 "Rating": rating
             }
         }
-        requester.post(globalConstants.baseUrl + "api/Hidden/Vote")
+        
+        requester.post(globalConstants.baseUrl + "api/Hidden/Vote", options)
             .then(function(resultDetails) {
                 resolve(resultDetails);
             })
@@ -27,5 +51,6 @@ function rateClubImage(imageId, rating) {
 }
 
 module.exports = {
-    rateClubImage: rateClubImage
+    rateClubImage: rateClubImage,
+    addImageLink: addImageLink
 }
