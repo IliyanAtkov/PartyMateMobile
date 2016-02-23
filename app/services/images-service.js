@@ -14,8 +14,7 @@ function rateClubImage(imageId, rating) {
                 "Rating": rating
             }
         }
-
-        requester.post(globalConstants.baseUrl + "api/Hidden/Rate")
+        requester.post(globalConstants.baseUrl + "api/Hidden/Vote")
             .then(function(resultDetails) {
                 resolve(resultDetails);
             })

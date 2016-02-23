@@ -17,10 +17,13 @@ var navigate = require("../../Helpers/navigator");
 var requester = require("../../Helpers/requester");
 var camera = require("../../Helpers/camera");
 
+var viewModel;
+
 function pageNavigatedTo(args) {
     page = args.object;
     var club = args.context;
-    page.bindingContext = vm.create(club, services);
+    viewModel = vm.create(club, services);
+    page.bindingContext = viewModel;
     loadImages();
     var slider = new sliderModule.Slider();
     slider.maxValue = 5;
@@ -44,19 +47,15 @@ function loadImages() {
     loader.show();
     let vm = page.bindingContext;
     requester.get(globalConstants.baseUrl + "api/Clubs/HiddenImages/" + vm.clubId)
-        .then(function(resultClubs) {
+        .then(function(resultImages) {
+            for (var i = 0; i < resultImages.length; i++) {
+                var imageToAdd = resultImages[i];
 
-            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FIX THIS
-            // console.dir(resultClubs);
-            //  for (var i = 0; i < resultClubs.length; i++) {
-            //      var clubToAdd = resultClubs[i];
-
-            //      var ratingAsImgSrc;
-
-            //      clubToAdd.Rating = ratingAsImgSrc;
-            //      vm.clubs.push(clubToAdd);
-            //      vm.clubsToVisualize.push(clubToAdd);
-            //  }
+                if (imageToAdd !== undefined && imageToAdd.Path.length !== 0) {
+                    imageToAdd.Id = i;
+                    vm.photos.push(imageToAdd);
+                }
+            }
 
             loader.hide();
         })
@@ -67,6 +66,7 @@ function loadImages() {
             notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
         });
 }
+
 
 function backButtonTap(args) {
     navigate.navigateAnimated("./views/clubs/clubs");
@@ -104,17 +104,33 @@ function submitBtn(args) {
 }
 
 function dislikeTap(args) {
-    //services.images.rateClubImage(imageId, -1)
-    // .then(function(result) {
-    //     // change value
-    // })
-    // .catch(function(err) {
-    //     // alert
-    // });
+    var image = args.object;
+    var item = image.bindingContext;
+
+    services.images.rateClubImage(item.Id, 1)
+        .then(function(result) {
+            console.log("RES: " + result);
+            this.item.likes = result;
+        })
+        .catch(function(err) {
+            console.log("ERR dislike");
+            console.dir(err);
+        });
 }
 
 function likeTap(args) {
-    //services.images.rateClubImage(imageId, 1);
+    var image = args.object;
+    var item = image.bindingContext;
+
+    services.images.rateClubImage(item.Id, 1)
+        .then(function(result) {
+            console.log("RES: " + result);
+            this.item.likes = result;
+        })
+        .catch(function(err) {
+            console.log("ERR dislike");
+            console.dir(err);
+        });
 }
 
 
@@ -122,15 +138,8 @@ function openCameraTap() {
     camera.takePicture()
         .then(function(photo) {
             console.log(photo);
-            page.bindingContext.addImagePreview = photo;
+            viewModel.addImagePreview = photo;
         });
-
-    // cameraModule.takePicture()
-    //     .then(function(photo) {
-    //         page.bindingContext.addImagePreview = photo; // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FIX THIS BINDING
-
-    //     });
-
 }
 
 // function savePicture(photo) {

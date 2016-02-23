@@ -12,10 +12,10 @@
                         <ListView items="{{ photos }}">
                             <ListView.itemTemplate>
                                 <GridLayout columns="*, *, *" rows="*, *">
-                                    <Image src="http://www.keenthemes.com/preview/conquer/assets/plugins/jcrop/demos/demo_files/image1.jpg" colspan="3" stretch="aspectFit" />
+                                    <Image src="{{ Path}}" colspan="3" stretch="aspectFit" />
                                     <Image src="~/images/LikeIcon.png" text="Like" row="1" col="0" tap="likeTap" />
-                                    <Label text="14" row="1" col="1" class="clubPhotosVoteLabel" />
-                                    <Image src="~/images/DislikeIcon.png" text="Dislike" row="1" col="3" tap="dislikeTap" />
+                                    <Label text="{{ likes }}" row="1" col="1" class="clubPhotosVoteLabel" />
+                                    <Image src="~/images/DislikeIcon.png" row="1" col="3" tap="dislikeTap" />
                                 </GridLayout>
                             </ListView.itemTemplate>
                         </ListView>
