@@ -7,7 +7,7 @@ var utilityModule = require("utils/utils");
 var sliderModule = require("ui/slider");
 var cameraModule = require("camera");
 var imageModule = require("ui/image");
-
+ var dialogs = require("ui/dialogs");
 var services = require('../../services');
 var vm = require('./clubPhotos-view-model');
 var connection = require("../../Helpers/connection");
@@ -20,6 +20,7 @@ function pageNavigatedTo(args) {
     page = args.object;
     var club = args.context;
     page.bindingContext = vm.create(club, services);
+    loadImages();
     var slider = new sliderModule.Slider();
     slider.maxValue = 5;
     slider.value = 3;
@@ -53,6 +54,38 @@ function indexChange(args) {
     }
 }
 
+function loadImages() {
+     dialogs.alert({
+         title: globalConstants.willStartWorkingWithDataTitle,
+         message: globalConstants.fetchingClubsFromServerMessage,
+         okButtonText: globalConstants.OKButtonText
+     }).then(function() {
+         loader.show();
+         let vm = page.bindingContext;
+         requester.get(globalConstants.baseUrl + "api/Clubs/HiddenImages/" + vm.clubId)
+             .then(function(resultClubs) {
+                console.log("MQU");
+                // console.dir(resultClubs);
+                //  for (var i = 0; i < resultClubs.length; i++) {
+                //      var clubToAdd = resultClubs[i];
+
+                //      var ratingAsImgSrc;
+
+                //      clubToAdd.Rating = ratingAsImgSrc;
+                //      vm.clubs.push(clubToAdd);
+                //      vm.clubsToVisualize.push(clubToAdd);
+                //  }
+
+                 loader.hide();
+             })
+             .catch(function(err) {
+                 console.log("SOMETHING BAD FROM hidden images");
+                 console.dir(err);
+                 loader.hide();
+                 notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
+             });
+     });
+}
 function backButtonTap(args) {
     navigate.navigateAnimated("./views/clubs/clubs");
 }
@@ -124,7 +157,7 @@ function submitBtn(args) {
         //          // loader.hide();
         //          // notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
         //      });
-    }
+//    }
 }
 
 function dislikeTap(args) {
@@ -134,6 +167,7 @@ function dislikeTap(args) {
 function likeTap(args) {
 
 }
+
 
 function openCameraTap() {
     cameraModule.takePicture().then(function(picture) {
