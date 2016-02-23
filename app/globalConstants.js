@@ -13,7 +13,6 @@ let globalConstantsModule = {
 	noClubAvailableMessage: "You are not in club at the moment. Use the Refresh icon when you are somewhere else.",
 	noClubAvailableText: "No club.",
 	noGPSTitle: "Whoops..",
-	noGPSMessage: "Location Services are not enabled at the moment.",
 	noGPSMessage: "Will enable Location Services. Please Tap Refresh icon again after it. :)",
 	noGPSTapRefreshMessage: "Location Services are not enabled at the moment. Tap Refresh icon to enable them.",
 	willStartWorkingWithDataTitle: "Connecting to our server.",

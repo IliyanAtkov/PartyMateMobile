@@ -15,4 +15,4 @@ function notify(title, message) {
 
 module.exports = {
     notify: notify
-}
+};

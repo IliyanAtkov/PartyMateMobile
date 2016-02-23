@@ -1,10 +1,7 @@
+'use strict';
+
 var requester = require("../Helpers/requester");
 var globalConstants = require("../globalConstants");
-
-function getAllClubs() {
-
-}
-
 
 function getClubDetails(club) {
     var promise = new Promise(function(resolve, reject) {
@@ -23,4 +20,4 @@ function getClubDetails(club) {
 module.exports = {
     //getAll: getAllClubs,
     getClubDetails: getClubDetails
-}
+};

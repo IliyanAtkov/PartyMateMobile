@@ -10,6 +10,6 @@ var validatorModule = {
         return password && typeof password === 'string' &&
             password.length >= 6 && password.length <= 20;
     }
-}
+};
 
-module.exports = validatorModule
+module.exports = validatorModule;

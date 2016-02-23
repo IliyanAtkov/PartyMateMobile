@@ -3,14 +3,10 @@
 var page = require("ui/page");
 var view = require("ui/core/view");
 var loader = require("nativescript-loading-indicator");
-var utilityModule = require("utils/utils");
 var sliderModule = require("ui/slider");
-var cameraModule = require("camera");
-var imageModule = require("ui/image");
-var dialogs = require("ui/dialogs");
+
 var services = require('../../services');
 var vm = require('./clubPhotos-view-model');
-var connection = require("../../Helpers/connection");
 var notifier = require("../../Helpers/notifier");
 var globalConstants = require("../../globalConstants");
 var navigate = require("../../Helpers/navigator");
@@ -29,18 +25,6 @@ function pageNavigatedTo(args) {
     slider.maxValue = 5;
     slider.value = 3;
     slider.minValue = 1;
-}
-
-function indexChange(args) {
-    if (args.newIndex === 1) {
-
-    }
-    if (args.newIndex === 2) {
-
-    }
-    if (args.newIndex === 3) {
-
-    }
 }
 
 function loadImages() {
@@ -70,11 +54,11 @@ function loadImages() {
 }
 
 
-function backButtonTap(args) {
+function backButtonTap() {
     navigate.navigateAnimated("./views/clubs/clubs");
 }
 
-function submitBtn(args) {
+function submitBtn() {
     var textView = view.getViewById(page, "userOpinion");
     var slider = view.getViewById(page, "sliderReview");
     console.dir(slider);
@@ -91,13 +75,13 @@ function submitBtn(args) {
             headers: {
                 "Content-Type": "application/json"
             }
-        }
-    }
+        };
+    
 
     requester.post(globalConstants.baseUrl + "api/Clubs/Review", options)
         .then(function(result) {
             console.log("Da");
-            console.dir(resultClubs);
+            console.log(result);
             notifier.notify("Club reviewed!", "That was important.");
         })
         .catch(function(err) {
@@ -107,6 +91,7 @@ function submitBtn(args) {
             // loader.hide();
             // notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
         });
+    }
 }
 
 function dislikeTap(args) {
@@ -153,23 +138,22 @@ function uploadImageTap() {
     camera.savePicture(page.bindingContext.addImagePreview)
         .then(function(link) {
             services.images.addImageLink(link)
-                .then(function(res) {
+                .then(function() {
                     notifier.notify("Yay!", "Image added!");
                     view.getViewById(page, "photosListView").refresh();
                 })
-                .catch(function(err) {
+                .catch(function() {
                     notifier.notify("Woah!", "Bad things happened!");
                 });
         })
         .catch(function(err) {
-            console.log("BAD ERROR FROM UPLOAD IMAGE TAP")
+            console.log("BAD ERROR FROM UPLOAD IMAGE TAP");
             console.dir(err);
         });
 }
 
 module.exports = {
     pageNavigatedTo,
-    indexChange,
     backButtonTap,
     dislikeTap,
     likeTap,

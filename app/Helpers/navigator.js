@@ -39,4 +39,4 @@ module.exports = {
     navigate: navigate,
     navigateAnimated: navigateAnimated,
     navigateWithEntry: navigateWithEntry
-}
+};

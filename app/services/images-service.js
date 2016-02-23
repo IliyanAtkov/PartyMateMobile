@@ -1,3 +1,5 @@
+'use strict';
+
 var requester = require("../Helpers/requester");
 var globalConstants = require("../globalConstants");
 
@@ -11,7 +13,7 @@ function addImageLink(clubId, link) {
                 "ClubId": clubId,
                 "Path": link
             }
-        }
+        };
         requester.post(globalConstants.baseUrl + "api/Clubs/HiddenImages", options)
             .then(function(resultDetails) {
                 resolve(resultDetails);
@@ -36,7 +38,7 @@ function rateClubImage(imageId, rating) {
                 "ImageId": imageId,
                 "Rating": rating
             }
-        }
+        };
         
         requester.post(globalConstants.baseUrl + "api/Hidden/Vote", options)
             .then(function(resultDetails) {
@@ -53,4 +55,4 @@ function rateClubImage(imageId, rating) {
 module.exports = {
     rateClubImage: rateClubImage,
     addImageLink: addImageLink
-}
+};

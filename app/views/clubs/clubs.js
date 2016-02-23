@@ -9,15 +9,13 @@
  var geolocation = require("nativescript-geolocation");
  var vm = require('./clubs-view-model')
      .create(services);
- var ObservableArray = require('data/observable-array').ObservableArray;
- var gestures = require("ui/gestures");
  var navigate = require("../../Helpers/navigator");
  var connection = require("../../Helpers/connection");
  var notifier = require("../../Helpers/notifier");
  var globalConstants = require("../../globalConstants");
  var requester = require("../../Helpers/requester");
 
- var location = undefined;
+ var locLocation;
  var initialPageLoad = true;
 
  function pageLoaded(args) {
@@ -59,7 +57,7 @@
      }
  }
  
- function refreshTap(args) {
+ function refreshTap() {
      var listView = view.getViewById(page, "clubsListView");
 
      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ UNCOMMENT THIS
@@ -204,7 +202,7 @@
              timeout: 99999
          }).then(function(loc) {
              if (loc) {
-                 location = loc;
+                 locLocation = loc;
                  updateCurrentClub(loc);
                  loader.hide();
              }
@@ -214,7 +212,7 @@
              loader.hide();
              notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
          });
-     }, function(e) {
+     }, function() {
          loader.hide();
          notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
      });

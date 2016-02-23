@@ -8,10 +8,7 @@ var utilityModule = require("utils/utils");
 var services = require('../../services');
 var vm = require('./clubDetails-view-model');
 
-var connection = require("../../Helpers/connection");
-var notifier = require("../../Helpers/notifier");
-var globalConstants = require("../../globalConstants");
-var navigator = require("../../Helpers/navigator");
+var navigate = require("../../Helpers/navigator");
 
 
 function pageNavigatedTo(args) {
@@ -51,7 +48,7 @@ function siteTap() {
 }
 
 function backButtonTap() {
-    navigator.navigateAnimated("./views/clubs/clubs");
+    navigate.navigateAnimated("./views/clubs/clubs");
 }
 
 module.exports = {

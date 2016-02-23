@@ -1,3 +1,5 @@
+'use strict';
+
 var cameraModule = require("camera");
 var Everlive = require('~/libs/everlive.all.min');
 var el = new Everlive('hsofhjl84uwzldbi');
@@ -23,7 +25,7 @@ function savePicture(photo) {
         };
 
         el.Files.create(imageFile).then(function(response) {
-            var imageUri = response.result['Uri'];
+            var imageUri = response.result.Uri;
             console.log(imageUri);
             resolve(imageUri);
         }, function(err) {
@@ -37,4 +39,4 @@ function savePicture(photo) {
 module.exports = {
     takePicture: takePicture,
     savePicture: savePicture
-}
+};

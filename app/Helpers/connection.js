@@ -16,4 +16,4 @@ function isEnabled() {
 
 module.exports = {
 	isEnabled: isEnabled
-}
+};
