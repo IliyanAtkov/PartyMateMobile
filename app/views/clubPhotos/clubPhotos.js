@@ -64,18 +64,16 @@ function loadImages() {
         loader.show();
         let vm = page.bindingContext;
         requester.get(globalConstants.baseUrl + "api/Clubs/HiddenImages/" + vm.clubId)
-            .then(function(resultClubs) {
-                console.log("MQU");
-                // console.dir(resultClubs);
-                //  for (var i = 0; i < resultClubs.length; i++) {
-                //      var clubToAdd = resultClubs[i];
+            .then(function(resultImages) {
+                 for (var i = 0; i < resultImages.length; i++) {
+                     var imageToAdd = resultImages[i];
 
-                //      var ratingAsImgSrc;
+                     if (imageToAdd !== undefined && imageToAdd.Path.length !== 0) {
+                        imageToAdd.Id = i;
+                        vm.photos.push(imageToAdd);
+                      }
+                 }
 
-                //      clubToAdd.Rating = ratingAsImgSrc;
-                //      vm.clubs.push(clubToAdd);
-                //      vm.clubsToVisualize.push(clubToAdd);
-                //  }
 
                 loader.hide();
             })
@@ -87,6 +85,7 @@ function loadImages() {
             });
     });
 }
+
 
 function backButtonTap(args) {
     navigate.navigateAnimated("./views/clubs/clubs");
@@ -185,19 +184,35 @@ function submitBtn(args) {
         //      });
         //    }
     }
-
+}
     function dislikeTap(args) {
-        //services.images.rateClubImage(imageId, -1)
-        // .then(function(result) {
-        //     // change value
-        // })
-        // .catch(function(err) {
-        //     // alert
-        // });
-    }
+         var image = args.object;
+         var item = image.bindingContext;
 
+        console.dir(item.Id);
+        services.images.rateClubImage(item.Id, 1)
+        .then(function(result) {
+            console.log("RES: " + result);
+            this.item.likes = result;
+        })
+        .catch(function(err) {
+            console.log("ERR dislike");
+            console.dir(err);
+        });
+    }
     function likeTap(args) {
-        //services.images.rateClubImage(imageId, 1);
+        var image = args.object;
+        var item = image.bindingContext;
+
+        services.images.rateClubImage(item.Id, 1)
+        .then(function(result) {
+            console.log("RES: " + result);
+            this.item.likes = result;
+        })
+        .catch(function(err) {
+            console.log("ERR dislike");
+            console.dir(err);
+        });
     }
 
 
@@ -216,5 +231,5 @@ function submitBtn(args) {
         dislikeTap,
         likeTap,
         openCameraTap,
-        uploadImageTap
+        uploadImageTap,
     };

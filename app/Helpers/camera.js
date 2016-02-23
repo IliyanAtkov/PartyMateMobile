@@ -12,7 +12,7 @@ function takePicture(imageView) {
             return photo;
         })
         .then(savePicture);
-}; 
+}
 
 function savePicture(photo) {
     var imageString = photo.toBase64String('.jpg', 100);
@@ -31,4 +31,4 @@ function savePicture(photo) {
 
 module.exports = {
     takePicture: takePicture
-}
+};
