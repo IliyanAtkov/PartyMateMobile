@@ -25,7 +25,7 @@
             <TabViewItem title="Add photo">
                 <TabViewItem.view>
                     <GridLayout rows="5*, *, *">
-                        <Image src="~/images/NoImage.png" stretch="aspectFit" row="0" colSpan="2" />
+                        <Image src="{{ addImagePreview }}" stretch="aspectFit" row="0" colSpan="2" />
                         <Button text="Camera" text="Camera" tap="openCameraTap" row="1"/>
                         <Button text="Upload" tap="uploadImageTap" row="2" colSpan="2" />
                     </GridLayout>

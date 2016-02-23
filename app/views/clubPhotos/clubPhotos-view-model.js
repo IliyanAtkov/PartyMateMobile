@@ -13,6 +13,8 @@ class ClubPhotosViewModel extends Observable {
 		this.clubName = club.clubName;
 		this.clubProfileImage = club.clubImage;
 		this.sliderValue = 1;
+		this.addImagePreview = "~/images/NoImage.png";
+		
 		this.photos = new ObservableArray([]);
 var image1 = new Observable();
 		image1.set("image", "http://tips.betdownload.com/cf/images/ndh/2013/12/create-a-shutdown-or-restart-your-desktop-icons-1.jpg");
