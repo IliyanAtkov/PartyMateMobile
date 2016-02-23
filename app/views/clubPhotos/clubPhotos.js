@@ -46,11 +46,12 @@ function indexChange(args) {
 function loadImages() {
     loader.show();
     let vm = page.bindingContext;
+    console.log(vm.clubId);
     requester.get(globalConstants.baseUrl + "api/Clubs/HiddenImages/" + vm.clubId)
         .then(function(resultImages) {
             for (var i = 0; i < resultImages.length; i++) {
                 var imageToAdd = resultImages[i];
-
+                console.dir(imageToAdd);
                 if (imageToAdd !== undefined && imageToAdd.Path.length !== 0) {
                     console.dir(imageToAdd);
                     imageToAdd.Id = i;

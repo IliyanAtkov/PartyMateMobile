@@ -63,17 +63,18 @@
      var listView = view.getViewById(page, "clubsListView");
 
      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ UNCOMMENT THIS
-     // if (!geolocation.isEnabled()) {
-     //     dialogs.alert({
-     //         title: globalConstants.noGPSTitle,
-     //         message: globalConstants.noGPSMessage,
-     //         okButtonText: globalConstants.OKButtonText
-     //     }).then(function() {
-     //         enableLocation();
-     //     });
+     if (!geolocation.isEnabled()) {
+         dialogs.alert({
+             title: globalConstants.noGPSTitle,
+             message: globalConstants.noGPSMessage,
+             okButtonText: globalConstants.OKButtonText
+         }).then(function() {
+             enableLocation();
+         });
 
-     //     return;
-     // }
+         return;
+     }
+     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
      if (!connection.isEnabled) {
          notifier.notify(globalConstants.noConnectionTitle, globalConstants.noConnectionMessage);
@@ -145,7 +146,7 @@
              longitude: club.Location.Longitude
          };
 
-         var location = currentClubLocation; // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
+         //var location = currentClubLocation; // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
 
          var distance = geolocation.distance(currentClubLocation, location);
          if (distance < globalConstants.rangeForClubsInMeters &&
@@ -186,8 +187,8 @@
  function refreshClubInRange() {
 
      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
-     updateCurrentClub();
-     return;
+     // updateCurrentClub();
+     // return;
      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
      dialogs.alert({
@@ -221,15 +222,15 @@
 
  function clubTap() {
      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ REMOVE THIS
-     loader.show();
-     if (vm.currentClub.getItem(0).Id === 0) {
-         notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
-         return;
-     }
+     // loader.show();
+     // if (vm.currentClub.getItem(0).Id === 0) {
+     //     notifier.notify(globalConstants.noClubAvailableTitle, globalConstants.noClubAvailableMessage);
+     //     return;
+     // }
 
-     loader.hide();
-     navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
-     return;
+     // loader.hide();
+     // navigate.navigateAnimated("./views/clubPhotos/clubPhotos", vm.currentClub.getItem(0));
+     // return;
      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
      loader.show();

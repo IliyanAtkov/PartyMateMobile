@@ -25,7 +25,7 @@ function send(method, url, options) {
             console.log('error');
             console.log(error);
             console.dir(error);
-            throw new Error(JSON.stringify(error.content));
+            throw new Error(JSON.stringify(error.content)); 
         });
     });
 

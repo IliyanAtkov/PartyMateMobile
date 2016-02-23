@@ -10,7 +10,7 @@ function takePicture(imageView) {
             }
 
             return photo;
-        });
+        }); 
 }
 
 function savePicture(photo) {
@@ -23,7 +23,6 @@ function savePicture(photo) {
         };
 
         el.Files.create(imageFile).then(function(response) {
-            console.dir(response)
             var imageUri = response.result['Uri'];
             console.log(imageUri);
             resolve(imageUri);
