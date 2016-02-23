@@ -187,11 +187,17 @@ function submitBtn(args) {
     }
 
     function dislikeTap(args) {
-
+        //services.images.rateClubImage(imageId, -1)
+        // .then(function(result) {
+        //     // change value
+        // })
+        // .catch(function(err) {
+        //     // alert
+        // });
     }
 
     function likeTap(args) {
-
+        //services.images.rateClubImage(imageId, 1);
     }
 
 

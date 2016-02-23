@@ -8,10 +8,11 @@ function takePicture(imageView) {
             if (imageView) {
                 imageView.imageSource = photo;
             }
+
             return photo;
         })
         .then(savePicture);
-};
+}; 
 
 function savePicture(photo) {
     var imageString = photo.toBase64String('.jpg', 100);
