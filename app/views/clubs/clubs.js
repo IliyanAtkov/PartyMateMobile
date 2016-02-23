@@ -51,15 +51,14 @@
              }
          });
      });
- }
+ } 
 
  function enableLocation() {
      if (!geolocation.isEnabled()) {
          geolocation.enableLocationRequest();
      }
  }
-
-
+ 
  function refreshTap(args) {
      var listView = view.getViewById(page, "clubsListView");
 

@@ -7,7 +7,8 @@ function send(method, url, options) {
 
     var headers = options.headers || {},
         data = options.data || undefined;
-
+        console.dir(headers);
+        console.dir(data);
     var result;
     var promise = new Promise(function(resolve, reject) {
         http.request({
@@ -20,7 +21,7 @@ function send(method, url, options) {
                 result = response.content.toJSON();
                 resolve(result);
             } else {
-                reject(response)
+                reject(response);
             }
         }).catch(function (error) {
             console.log('error');
