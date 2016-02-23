@@ -26,21 +26,6 @@ function pageNavigatedTo(args) {
     slider.maxValue = 5;
     slider.value = 3;
     slider.minValue = 1;
-    // loader.show();
-    // services.clubs.getClubDetails(club)
-    //     .then(function(details) {
-    //         //   console.dir(details); 
-
-
-    //         console.log("succeess getClubDetails");
-    //         page.bindingContext = vm.create(details);
-    //         loader.hide();
-    //     }) 
-    //     .catch(function(err) {
-    //         console.dir("IN CLUB DETAILS ERR" + err);
-    //         loader.hide();
-    //     });  
-    // }
 }
 
 function indexChange(args) {
@@ -56,36 +41,31 @@ function indexChange(args) {
 }
 
 function loadImages() {
-    dialogs.alert({
-        title: globalConstants.willStartWorkingWithDataTitle,
-        message: globalConstants.fetchingClubsFromServerMessage,
-        okButtonText: globalConstants.OKButtonText
-    }).then(function() {
-        loader.show();
-        let vm = page.bindingContext;
-        requester.get(globalConstants.baseUrl + "api/Clubs/HiddenImages/" + vm.clubId)
-            .then(function(resultClubs) {
-                console.log("MQU");
-                // console.dir(resultClubs);
-                //  for (var i = 0; i < resultClubs.length; i++) {
-                //      var clubToAdd = resultClubs[i];
+    loader.show();
+    let vm = page.bindingContext;
+    requester.get(globalConstants.baseUrl + "api/Clubs/HiddenImages/" + vm.clubId)
+        .then(function(resultClubs) {
 
-                //      var ratingAsImgSrc;
+            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FIX THIS
+            // console.dir(resultClubs);
+            //  for (var i = 0; i < resultClubs.length; i++) {
+            //      var clubToAdd = resultClubs[i];
 
-                //      clubToAdd.Rating = ratingAsImgSrc;
-                //      vm.clubs.push(clubToAdd);
-                //      vm.clubsToVisualize.push(clubToAdd);
-                //  }
+            //      var ratingAsImgSrc;
 
-                loader.hide();
-            })
-            .catch(function(err) {
-                console.log("SOMETHING BAD FROM hidden images");
-                console.dir(err);
-                loader.hide();
-                notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
-            });
-    });
+            //      clubToAdd.Rating = ratingAsImgSrc;
+            //      vm.clubs.push(clubToAdd);
+            //      vm.clubsToVisualize.push(clubToAdd);
+            //  }
+
+            loader.hide();
+        })
+        .catch(function(err) {
+            console.log("SOMETHING BAD FROM hidden images");
+            console.dir(err);
+            loader.hide();
+            notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
+        });
 }
 
 function backButtonTap(args) {
@@ -99,14 +79,14 @@ function submitBtn(args) {
     if (textView.text !== undefined && textView.text.count !== 0) {
         var options = {
             data: {
-                "ClubId": "1",
-                "Content": "MN IAKO",
+                "ClubId": 1,
+                "Content": "MN IAKOWQWEQWE",
                 "Rating": 5
             },
             headers: {
                 "Content-Type": "application/json"
             }
-        };
+        }
 
         requester.post(globalConstants.baseUrl + "api/Clubs/Review", options)
             .then(function(resultClubs) {
@@ -120,101 +100,68 @@ function submitBtn(args) {
                 // loader.hide();
                 // notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
             });
-        // var contenta = JSON.stringify({
-        //            "clubId": 1,
-        //            "Content": "ADADJIADJDJIADD",
-        //            "Rating": 5
-        //         });
-        // console.log(contenta);
-        // if (textView.text !== undefined && textView.text.count !== 0) {
-        //     fetch("http://partymate.apphb.com/api/Clubs/Test", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         content: JSON.stringify({
-        //            "clubId": 1,
-        //            "Content": "ADADJIADJDJIADD",
-        //            "Rating": 5
-        //         })
-        //     }).then(function(r) {
-        //         console.log("HIEJRAE");
-        //         return r.json();
-        //     }).then(function(r) {
-        //         console.log("AHDJAX");
-        //         console.dir(r);
-        //     }, function(e) {
-        //         console.dir(e);
-        //         console.log("Error occurred " + e);
-        //    });
-        // http.request({
-        //         url: globalConstants.baseUrl + "api/Clubs/Review",
-        //         method: "POST",
-        //         content: JSON.stringify({
-        //             "clubId": "1",
-        //             "Content": "ADADJIADJDJIADD",
-        //             "Rating": 5
-        //         }),
-        //         headers: JSON.stringify({
-        //             "Content-Type": "application/json"
-        //         })
-        //     })
-        //     .then(function(response) {
-        //         console.dir(response);
-        //         if (response.statusCode === 200) {
-        //             success(response);
-        //         } else {
-        //             error(response);
-        //         }
-        //     }).catch(function(error) {
-        //         console.log('error');
-        //         console.log(error);
-        //         throw new Error(JSON.stringify(error.content));
-        //     });
-        // requester.post(globalConstants.baseUrl + "api/Clubs/Review", options)
-        // .then(function(resultClubs) {
-        //     console.log("Da");
-        //     console.dir(resultClubs);
-        // })
-        //  .catch(function(err) {
-        //     console.log(err.statusCode);
-        //             console.dir(err);
-        //          console.log("SOMETHING BAD FROM REVIEW CLUBS");
-        //          // loader.hide();
-        //          // notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
-        //      });
-        //    }
     }
+}
 
-    function dislikeTap(args) {
-        //services.images.rateClubImage(imageId, -1)
-        // .then(function(result) {
-        //     // change value
-        // })
-        // .catch(function(err) {
-        //     // alert
-        // });
-    }
+function dislikeTap(args) {
+    //services.images.rateClubImage(imageId, -1)
+    // .then(function(result) {
+    //     // change value
+    // })
+    // .catch(function(err) {
+    //     // alert
+    // });
+}
 
-    function likeTap(args) {
-        //services.images.rateClubImage(imageId, 1);
-    }
+function likeTap(args) {
+    //services.images.rateClubImage(imageId, 1);
+}
 
 
-    function openCameraTap() {
-        camera.takePicture(page.bindingContext.addImagePreview);
-    }
+function openCameraTap() {
+    camera.takePicture()
+        .then(function(photo) {
+            console.log(photo);
+            page.bindingContext.addImagePreview = photo;
+        });
 
-    function uploadImageTap() {
+    // cameraModule.takePicture()
+    //     .then(function(photo) {
+    //         page.bindingContext.addImagePreview = photo; // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FIX THIS BINDING
 
-    }
+    //     });
 
-    module.exports = {
-        pageNavigatedTo,
-        indexChange,
-        backButtonTap,
-        dislikeTap,
-        likeTap,
-        openCameraTap,
-        uploadImageTap
-    };
+}
+
+// function savePicture(photo) {
+//     console.log(photo)
+//     console.dir(photo);
+//     var imageString = photo.toBase64String('.jpg', 100);
+//     var imageFile = {
+//         Filename: Math.random().toString(36).substring(2, 15) + ".jpg",
+//         ContentType: "image/jpeg",
+//         base64: imageString
+//     };
+
+//     el.Files.create(imageFile).then(function(response) {
+//         console.dir(response)
+//         var imageUri = response.result['Uri'];
+//         console.log(imageUri);
+
+//     });
+// }
+
+function uploadImageTap() {
+    camera.savePicture(page.bindingContext.addImagePreview);
+}
+
+module.exports = {
+    pageNavigatedTo,
+    indexChange,
+    backButtonTap,
+    dislikeTap,
+    likeTap,
+    openCameraTap,
+    uploadImageTap,
+    submitBtn
+};

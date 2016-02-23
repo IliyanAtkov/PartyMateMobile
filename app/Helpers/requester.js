@@ -7,8 +7,6 @@ function send(method, url, options) {
 
     var headers = options.headers || {},
         data = options.data || undefined;
-        console.dir(headers);
-        console.dir(data);
     var result;
     var promise = new Promise(function(resolve, reject) {
         http.request({
@@ -26,6 +24,7 @@ function send(method, url, options) {
         }).catch(function (error) {
             console.log('error');
             console.log(error);
+            console.dir(error);
             throw new Error(JSON.stringify(error.content));
         });
     });

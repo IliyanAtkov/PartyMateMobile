@@ -11,10 +11,11 @@ function takePicture(imageView) {
 
             return photo;
         })
-        .then(savePicture);
 }; 
 
 function savePicture(photo) {
+    console.log(photo)
+    console.dir(photo);
     var imageString = photo.toBase64String('.jpg', 100);
     var imageFile = {
         Filename: Math.random().toString(36).substring(2, 15) + ".jpg",
@@ -22,13 +23,15 @@ function savePicture(photo) {
         base64: imageString
     };
 
-    return el.Files.create(imageFile).then(function(response) {
+    el.Files.create(imageFile).then(function(response) {
+        console.dir(response)
         var imageUri = response.result['Uri'];
         console.log(imageUri);
-        return imageUri;
+
     });
 }
 
 module.exports = {
-    takePicture: takePicture
+    takePicture: takePicture,
+    savePicture: savePicture
 }
