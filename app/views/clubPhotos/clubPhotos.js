@@ -12,6 +12,7 @@ var globalConstants = require("../../globalConstants");
 var navigate = require("../../Helpers/navigator");
 var requester = require("../../Helpers/requester");
 var camera = require("../../Helpers/camera");
+var appSettings = require("application-settings");
 
 var viewModel;
 
@@ -82,6 +83,7 @@ function submitBtn() {
         .then(function(result) {
             console.log("Da");
             console.log(result);
+            appSettings.setBoolean("isReviewed", true);
             notifier.notify("Club reviewed!", "That was important.");
         })
         .catch(function(err) {
@@ -110,6 +112,15 @@ function dislikeTap(args) {
         });
 }
 
+function indexChange(args) {
+    if (args.newIndex === 3) {
+        var isReview = appSettings.getBoolean("isReviewed", true);
+        if (isReview) {
+            args.newIndex = 2;
+        }
+    }
+}
+
 function likeTap(args) {
     var image = args.object;
     var item = image.bindingContext;
@@ -125,7 +136,6 @@ function likeTap(args) {
             console.dir(err);
         });
 }
-
 
 function openCameraTap() {
     camera.takePicture()
@@ -156,6 +166,7 @@ module.exports = {
     pageNavigatedTo,
     backButtonTap,
     dislikeTap,
+    indexChange,
     likeTap,
     openCameraTap,
     uploadImageTap,
