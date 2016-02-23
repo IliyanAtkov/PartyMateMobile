@@ -20,7 +20,7 @@ function send(method, url, options) {
                 result = response.content.toJSON();
                 resolve(result);
             } else {
-                reject(response)
+                reject(response);
             }
         }).catch(function (error) {
             console.log('error');

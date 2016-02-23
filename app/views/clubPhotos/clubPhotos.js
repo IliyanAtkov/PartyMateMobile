@@ -10,9 +10,10 @@ var vm = require('./clubPhotos-view-model');
 var connection = require("../../Helpers/connection");
 var notifier = require("../../Helpers/notifier");
 var globalConstants = require("../../globalConstants");
-var navigator = require("../../Helpers/navigator");
+var navigate = require("../../Helpers/navigator");
 var requester = require("../../Helpers/requester");
 
+var http = require('http')
 
 function pageNavigatedTo(args) {
     page = args.object;
@@ -38,34 +39,68 @@ function pageNavigatedTo(args) {
     //     });  
     // }
 }
- 
+
 function indexChange(args) {
     if (args.newIndex === 1) {
 
     }
     if (args.newIndex === 2) {
-  
+
     }
     if (args.newIndex === 3) {
- 
+
     }
 }
 
 function backButtonTap(args) {
-    navigator.navigateAnimated("./views/clubs/clubs");
+    navigate.navigateAnimated("./views/clubs/clubs");
 }
+
 function submitBtn(args) {
     var textView = view.getViewById(page, "userOpinion");
-    if (textView.text != undefined && textView.text.count != 0) {
-        // options = {
-        //     data: {
-        //         ClubId: 
-        //     },
-        //     headers: {
-        //         "content-type" : "application/json"
-        //     }
-        // };
-        // requester.post(globalConstants.baseUrl + "api/Clubs/All", options);
+    let vm = page.bindingContext;
+    console.log("ID " + vm.clubId);
+    if (textView.text !== undefined && textView.text.count !== 0) {
+        var options = {
+            data: {
+                "clubId": "1",
+                "Content": "ADADJIADJDJIADD",
+                "Rating": 5
+            },
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        
+        http.request({
+            url: globalConstants.baseUrl + "api/Clubs/Review",
+            method: "POST",
+            content: JSON.stringify(options.data),
+            headers: options.headers
+        }).then(function(response) {
+            console.dir(response);
+            if (response.statusCode === 200) {
+                success(response);
+            } else {
+                error(response)
+            }
+        }).catch(function(error) {
+            console.log('error');
+            console.log(error);
+            throw new Error(JSON.stringify(error.content));
+        });
+        // requester.post(globalConstants.baseUrl + "api/Clubs/Review", options)
+        // .then(function(resultClubs) {
+        //     console.log("Da");
+        //     console.dir(resultClubs);
+        // })
+        //  .catch(function(err) {
+        //     console.log(err.statusCode);
+        //             console.dir(err);
+        //          console.log("SOMETHING BAD FROM REVIEW CLUBS");
+        //          // loader.hide();
+        //          // notifier.notify(globalConstants.somethingBadHappenedTitle, globalConstants.somethingBadHappenedMessage);
+        //      });
     }
 }
 
@@ -83,5 +118,6 @@ module.exports = {
     indexChange,
     backButtonTap,
     dislikeTap,
-    likeTap
+    likeTap,
+    submitBtn
 };

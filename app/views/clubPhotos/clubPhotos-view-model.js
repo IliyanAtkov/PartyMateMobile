@@ -9,7 +9,7 @@ class ClubPhotosViewModel extends Observable {
 	constructor(club, services) {
 		super();
 		this.services = services;
-
+		this.clubId = club.Id;
 		this.clubName = club.clubName;
 		this.clubProfileImage = club.clubImage;
 		this.sliderValue = 1;
