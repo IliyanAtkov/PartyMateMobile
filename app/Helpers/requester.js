@@ -7,7 +7,8 @@ function send(method, url, options) {
 
     var headers = options.headers || {},
         data = options.data || undefined;
-
+        console.dir(headers);
+        console.dir(data);
     var result;
     var promise = new Promise(function(resolve, reject) {
         http.request({

@@ -5,6 +5,9 @@ var view = require("ui/core/view");
 var loader = require("nativescript-loading-indicator");
 var utilityModule = require("utils/utils");
 var sliderModule = require("ui/slider");
+var cameraModule = require("camera");
+var imageModule = require("ui/image");
+
 var services = require('../../services');
 var vm = require('./clubPhotos-view-model');
 var connection = require("../../Helpers/connection");
@@ -12,8 +15,6 @@ var notifier = require("../../Helpers/notifier");
 var globalConstants = require("../../globalConstants");
 var navigate = require("../../Helpers/navigator");
 var requester = require("../../Helpers/requester");
-
-var http = require('http');
 
 function pageNavigatedTo(args) {
     page = args.object;
@@ -134,6 +135,59 @@ function likeTap(args) {
 
 }
 
+function openCameraTap() {
+    cameraModule.takePicture().then(function(picture) {
+        //console.dir(picture);
+        var imgString = picture.toBase64String();
+        //console.log(imgString);
+        // var options = {
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     data: "OT CLUB PHOTOS"
+        // }
+
+        // requester.post(globalConstants.baseUrl + "api/Clubs/Test", options)
+        // .then(function(res) {
+        //     console.log("BEFORE PIC ");
+        //     console.dir(res);
+
+        // }).catch(function(err) {
+        //     console.log("BEFORE ERR PIC " + err)
+        //     console.dir(err);
+        // });
+
+        // var options = {
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     data: {
+        //         ClubId: 1,
+        //         Content: imgString
+        //     }
+        // };
+
+        // console.log("~~~~AFTER OPTIONS")
+        // requester.post(globalConstants.baseUrl + "api/Clubs/HiddenImages", options)
+        // .then(function(res) {
+        //     console.log("~~RES");
+        //     console.dir(res);
+        // })
+        // .catch(function(err) {
+        //     console.log("~~ERR");
+        //     console.dir(err);
+        // })
+
+
+        // console.log("~~~~AFTER REQ")
+        var image = new imageModule.Image();
+        image.imageSource = picture;
+    });
+}
+
+function uploadImageTap() {
+
+}
 
 module.exports = {
     pageNavigatedTo,
@@ -141,5 +195,6 @@ module.exports = {
     backButtonTap,
     dislikeTap,
     likeTap,
-    submitBtn
+    openCameraTap,
+    uploadImageTap
 };

@@ -4,18 +4,18 @@
             <NavigationButton android.systemIcon="ic_menu_back" tap="backButtonTap" />
         </ActionBar>
     </Page.actionBar>
- 	<TabView selectedIndexChanged="indexChange">
+    <TabView selectedIndexChanged="indexChange">
         <TabView.items>
             <TabViewItem title="Photos" tap="btn">
                 <TabViewItem.view>
                     <GridLayout>
-                         <ListView items="{{ photos }}">
+                        <ListView items="{{ photos }}">
                             <ListView.itemTemplate>
-                                <GridLayout columns="*, *, *, *, *" rows="*, *">
-                                    <Image src="http://www.keenthemes.com/preview/conquer/assets/plugins/jcrop/demos/demo_files/image1.jpg" colspan="5"  stretch="aspectFit" />
-                                    <Image text="Like" row="1" col="0" colspan="2" tap="likeTap" />
-                                    <Label text="14" row="1" col="2" class="clubPhotosVoteLabel" />
-                                    <Image text="Dislike" row="1" col="3" colspan="2" tap="dislikeTap" />
+                                <GridLayout columns="*, *, *" rows="*, *">
+                                    <Image src="http://www.keenthemes.com/preview/conquer/assets/plugins/jcrop/demos/demo_files/image1.jpg" colspan="3" stretch="aspectFit" />
+                                    <Image src="~/images/LikeIcon.png" text="Like" row="1" col="0" tap="likeTap" />
+                                    <Label text="14" row="1" col="1" class="clubPhotosVoteLabel" />
+                                    <Image src="~/images/DislikeIcon.png" text="Dislike" row="1" col="3" tap="dislikeTap" />
                                 </GridLayout>
                             </ListView.itemTemplate>
                         </ListView>
@@ -24,27 +24,28 @@
             </TabViewItem>
             <TabViewItem title="Add photo">
                 <TabViewItem.view>
-                    <StackLayout>
-                        <Label text="text"/>
-                    </StackLayout>
+                    <GridLayout rows="5*, *, *">
+                        <Image src="~/images/NoImage.png" stretch="aspectFit" row="0" colSpan="2" />
+                        <Button text="Camera" text="Camera" tap="openCameraTap" row="1"/>
+                        <Button text="Upload" tap="uploadImageTap" row="2" colSpan="2" />
+                    </GridLayout>
                 </TabViewItem.view>
-                 </TabViewItem>
+            </TabViewItem>
             <TabViewItem title="Reviews">
-                  <TabViewItem.view>
-                  	<GridLayout rows="0*,3*, 1*, *">
-	                    <StackLayout row="1"> 
-	                       <Label text="Tell us what you thinking: " class="clubReviewLabel" />
-	                       <TextView text="" id="userOpinion" height="300"/>
-	                    </StackLayout>
+                <TabViewItem.view>
+                    <GridLayout rows="0*,3*, 1*, *">
+                        <StackLayout row="1">
+                            <Label text="Tell us what you thinking: " class="clubReviewLabel" />
+                            <TextView text="" id="userOpinion" height="300" />
+                        </StackLayout>
                         <StackLayout row="2" class="sliderStackLayout">
                             <Label text="{{sliderValue}}" class="text-center" />
-                            <Slider minValue="1" maxValue="5" value="{{ sliderValue }}"  class="slider" />
-                     
+                            <Slider minValue="1" maxValue="5" value="{{ sliderValue }}" class="slider" />
                         </StackLayout>
-	                    <StackLayout row="3">
-	                    	<Image src="http://www.thehandlebarhudson.com/orange-submission-button.png" tap="submitBtn" height="120" />
-	                   	</StackLayout>
-                	</GridLayout>
+                        <StackLayout row="3">
+                            <Image src="http://www.thehandlebarhudson.com/orange-submission-button.png" tap="submitBtn" height="120" />
+                        </StackLayout>
+                    </GridLayout>
                 </TabViewItem.view>
             </TabViewItem>
         </TabView.items>
